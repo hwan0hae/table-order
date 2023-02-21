@@ -7,6 +7,7 @@ import {
   InputContainer,
   Preview,
   SubmitBtn,
+  TextArea,
 } from "styles/form-style";
 import { Box, Btn, Title } from "styles/styled";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -21,6 +22,7 @@ import { useRouter } from "next/navigation";
 interface IForm {
   name: string;
   price: number;
+  description: string;
 }
 
 function MenuAdd() {
@@ -65,6 +67,7 @@ function MenuAdd() {
 
     formData.append("name", data.name);
     formData.append("price", String(data.price));
+    formData.append("description", data.description);
     formData.append("file", imgFile);
 
     addMutation.mutate(formData);
@@ -89,7 +92,11 @@ function MenuAdd() {
               placeholder="가격을 입력해주세요."
             />
           </InputContainer>
-
+          <TextArea
+            {...register("description")}
+            type="text"
+            placeholder="메뉴 설명을 입력해주세요."
+          />
           <Btn
             type="button"
             onClick={() => {

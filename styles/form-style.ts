@@ -36,6 +36,15 @@ export const Input = styled.input`
   padding: 0 8px;
   border-radius: 3px;
 `;
+export const TextArea = styled.textarea`
+  padding: 6px 10px;
+  color: ${(props) => props.theme.textColor};
+  border: 1px solid ${(props) => props.theme.borderLine};
+  background-color: ${(props) => props.theme.bgColor};
+  border-radius: 3px;
+  height: 80px;
+  margin-bottom: 8px;
+`;
 export const Preview = styled.img`
   width: 100%;
   padding: 16px 8px;
