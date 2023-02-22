@@ -22,3 +22,9 @@ export async function menuAdd(formData: FormData) {
 
   return request.data;
 }
+
+export async function getMenuList() {
+  const request = await axios.get("/api/menu/list");
+
+  return request.data;
+}

@@ -17,6 +17,7 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>();
 
 const storage = multer.diskStorage({
   //목적지
+  //이미지 안들어올시 에러나느 것 / 이미지 필수로 하거나 기본 값 주거나 등//
   destination: function (req, file, cb) {
     cb(null, "upload/menu");
   },

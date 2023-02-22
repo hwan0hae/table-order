@@ -17,11 +17,11 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const Box = styled.div`
+export const Box = styled.main`
   background-color: ${(props) => props.theme.containerColor};
   width: 100%;
   margin-bottom: 10px;
-  padding: 30px 0;
+  padding: 30px 16px;
   border-radius: 1px;
   border: 1px solid ${(props) => props.theme.borderLine};
   display: flex;
@@ -59,6 +59,15 @@ export const Btn = styled.button`
   }
 `;
 
-export const MenuNavContainer = styled.nav`
+export const MenuNavContainer = styled.aside`
   margin-bottom: 8px;
+`;
+
+export const List = styled.section`
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, auto)); */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
 `;
