@@ -64,10 +64,9 @@ export const MenuNavContainer = styled.aside`
 `;
 
 export const List = styled.section`
-  /* display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, auto)); */
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 16px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, auto));
+  justify-content: space-evenly;
+  grid-gap: 16px;
 `;
