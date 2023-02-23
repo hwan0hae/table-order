@@ -45,6 +45,8 @@ model Product{
 }
 
 enum Auth {
+  ROOT
+  OWNER
   ADMIN
   STAFF
   USER

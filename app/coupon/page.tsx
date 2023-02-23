@@ -1,3 +1,5 @@
+"use client";
+
 function Coupon() {
   return <div>Coupon</div>;
 }

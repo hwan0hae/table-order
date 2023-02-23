@@ -24,7 +24,7 @@ export default async function handler(
     const userData = {
       ...userInfo,
       password: hashPassword,
-      auth: "ADMIN",
+      auth: "OWNER",
       company: { connect: { name: companyName } },
     };
     const createdUser = await prisma.user.create({ data: userData });

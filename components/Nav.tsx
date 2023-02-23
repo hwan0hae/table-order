@@ -106,6 +106,15 @@ export default function Nav() {
           <Link href={"/notify"}>
             <Item>알림</Item>
           </Link>
+          {status === "loading" ? null : (
+            <>
+              {session?.user.auth === "OWNER" ? (
+                <Link href={"/users"}>
+                  <Item>회원관리</Item>
+                </Link>
+              ) : null}
+            </>
+          )}
         </Items>
       </Row>
       <Row>
