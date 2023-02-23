@@ -11,28 +11,46 @@ export default async function handler(
   //암호화 소금소금
   const salt = 10;
   try {
-    /** company 생성 */
-    const companyData = {
-      name: body.companyName,
-      companyNumber: body.companyNumber,
-    };
-    const createdCompany = await prisma.company.create({ data: companyData });
+    /** 회사 데이터가 있다면 company 생성 */
+    if (body.companyName && body.companyNumber) {
+      const companyData = {
+        name: body.companyName,
+        companyNumber: body.companyNumber,
+      };
+      const createdCompany = await prisma.company.create({ data: companyData });
 
-    /** user 생성 */
+      /** OWNER user 생성 */
+      const hashPassword = await bcrypt.hash(body.password, salt);
+      const { companyName, companyNumber, ...userInfo } = body;
+      const userData = {
+        ...userInfo,
+        password: hashPassword,
+        auth: "OWNER",
+        company: { connect: { name: companyName } },
+      };
+      const createdUser = await prisma.user.create({ data: userData });
+
+      return res.status(200).json({
+        company: createdCompany,
+        user: createdUser,
+        message: "회원가입에 성공했습니다. 로그인 페이지로 이동합니다.",
+      });
+    }
+
+    /** 회사 데이터가 없다면 회원 user 생성 */
     const hashPassword = await bcrypt.hash(body.password, salt);
-    const { companyName, companyNumber, ...userInfo } = body;
-    const userData = {
+    const { companyName, ...userInfo } = body;
+    const data = {
       ...userInfo,
       password: hashPassword,
-      auth: "OWNER",
       company: { connect: { name: companyName } },
     };
-    const createdUser = await prisma.user.create({ data: userData });
+
+    const createdUser = await prisma.user.create({ data });
 
     return res.status(200).json({
-      company: createdCompany,
       user: createdUser,
-      message: "회원가입에 성공했습니다. 로그인 페이지로 이동합니다.",
+      message: "회원이 추가되었습니다.",
     });
   } catch (error: any) {
     console.error("/api/auth/signup >> ", error);

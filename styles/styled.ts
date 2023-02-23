@@ -52,6 +52,7 @@ export const Row = styled.div`
   flex-direction: row;
   gap: 12px;
   align-items: center;
+  justify-content: center;
 `;
 export const Btn = styled.button`
   font-size: 1em;

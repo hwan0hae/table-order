@@ -83,3 +83,25 @@ export const ErrorText = styled.p`
   color: red;
   font-weight: 400;
 `;
+
+export const RadioText = styled.span`
+  font-size: 1em;
+
+  padding: 8px 16px;
+  border-radius: 25px;
+  border: none;
+  box-shadow: 0px 0px 1px 1px ${(props) => props.theme.borderLine};
+  color: ${(props) => props.theme.borderLine};
+  display: flex;
+
+  cursor: pointer;
+`;
+
+export const Radio = styled.input.attrs({ type: "radio" })`
+  &:checked + ${RadioText} {
+    font-weight: 400;
+    background: ${(props) => props.theme.activeColor};
+    color: ${(props) => props.theme.textColor};
+  }
+  display: none;
+`;

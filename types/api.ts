@@ -16,6 +16,8 @@ export type SignUpUser = {
   passwordConfirm?: string;
   name: string;
   phone: string;
+  auth: string;
+  companyName?: string;
 };
 
 export type SignInUser = {
