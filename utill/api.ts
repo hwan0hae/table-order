@@ -1,13 +1,7 @@
 import axios from "axios";
+import { SignUpUser } from "types/api";
 
-export interface ISignUpUser {
-  email: string;
-  password: string;
-  name: string;
-  phone: string;
-}
-
-export async function signUpUser(info: ISignUpUser) {
+export async function signUpUser(info: SignUpUser) {
   const request = await axios.post("/api/auth/signup", info);
 
   return request.data;

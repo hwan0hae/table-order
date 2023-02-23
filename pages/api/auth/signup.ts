@@ -11,11 +11,26 @@ export default async function handler(
   //암호화 소금소금
   const salt = 10;
   try {
+    /** company 생성 */
+    const companyData = {
+      name: body.companyName,
+      companyNumber: body.companyNumber,
+    };
+    const createdCompany = await prisma.company.create({ data: companyData });
+
+    /** user 생성 */
     const hashPassword = await bcrypt.hash(body.password, salt);
-    const data = { ...body, password: hashPassword };
-    const createdUser = await prisma.user.create({ data });
+    const { companyName, companyNumber, ...userInfo } = body;
+    const userData = {
+      ...userInfo,
+      password: hashPassword,
+      auth: "ADMIN",
+      company: { connect: { name: companyName } },
+    };
+    const createdUser = await prisma.user.create({ data: userData });
 
     return res.status(200).json({
+      company: createdCompany,
       user: createdUser,
       message: "회원가입에 성공했습니다. 로그인 페이지로 이동합니다.",
     });
@@ -24,8 +39,17 @@ export default async function handler(
 
     if (error.constructor.name === PrismaClientKnownRequestError.name) {
       const errorType = error.meta?.target[0];
-      // 이메일, 폰번호중에 하나가 겹친다면 실행
       switch (errorType) {
+        case "name":
+          return res.status(409).json({
+            user: null,
+            message: "이미 가입된 회사명입니다.",
+          });
+        case "companyNumber":
+          return res.status(409).json({
+            user: null,
+            message: "이미 가입된 사업자 등록번호입니다.",
+          });
         case "email":
           return res.status(409).json({
             user: null,

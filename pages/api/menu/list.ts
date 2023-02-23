@@ -11,7 +11,7 @@ export default async function handler(
   try {
     const list = await prisma.product.findMany({
       where: {
-        creatorId: session?.user?.idx,
+        companyId: session?.user?.companyId,
       },
     });
 

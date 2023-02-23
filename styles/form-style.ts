@@ -15,6 +15,10 @@ export const Form = styled.form`
   margin: 16px 0px;
   padding: 0 40px;
 `;
+export const CompanyContainer = styled.div`
+  margin-bottom: 12px;
+`;
+export const UserContainer = styled.div``;
 
 export const InputContainer = styled.div`
   border-radius: 3px;

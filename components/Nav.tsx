@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { Btn, Row } from "styles/styled";
+import { Btn, Row, Text } from "styles/styled";
 import { isDarkAtom } from "utill/atoms";
 
 const NavBar = styled.nav`
@@ -121,12 +121,13 @@ export default function Nav() {
           )}
         </DarkModeBtn>
         {status === "loading" ? (
-          <div>Loading...</div>
+          <Text>Loading...</Text>
         ) : (
           <>
             {session?.user ? (
               <>
-                <div>{session.user.name}님</div>
+                <Text>[{session.user.companyName}]</Text>
+                <Text>{session.user.name}님</Text>
                 <Btn onClick={() => signOut()}>로그아웃</Btn>
               </>
             ) : (

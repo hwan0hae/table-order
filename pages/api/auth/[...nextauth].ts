@@ -52,16 +52,26 @@ export const authOptions: NextAuthOptions = {
     //세션에 로그인한 유저 데이터 입력
     //phone 정보 등이 문제가될시 세션정보에서 빼고 필요시 디비 조회로 가져와야 할듯 ㅇㅇ,,
     async session({ session }) {
-      const exUser = await prisma.user.findUnique({
+      const user = await prisma.user.findUnique({
         where: { email: session.user?.email },
         select: {
-          idx: true,
+          id: true,
           email: true,
           name: true,
           phone: true,
+          auth: true,
+          companyId: true,
         },
       });
-      // 로그인한 유저 데이터 재정의
+      const company = await prisma.company.findUnique({
+        where: { id: user.companyId },
+        select: {
+          name: true,
+        },
+      });
+
+      const exUser = { ...user, companyName: company.name };
+      // 로그인한 유저 데이터 재정의 > @tpye/
       // 단, 기존에 "user"의 형태가 정해져있기 때문에 변경하기 위해서는 타입 재정의가 필요함 (위에서 말한 리턴 값 정의 그래서 새로 type 정의 해주어야함)
       session.user = exUser;
       // 여기서 반환한 session값이 "useSession()"의 "data"값이 됨

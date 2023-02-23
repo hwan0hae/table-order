@@ -9,8 +9,8 @@ datasource db {
 
 model Company {
   id            Int     @id @default(autoincrement())
-  name          String  
-  companyNumber Int     @map("company_number")
+  name          String  @unique
+  companyNumber Int     @unique @map("company_number") 
   users         User[]
   products      Product[]
 }
@@ -21,6 +21,7 @@ model User {
   password  String
   name      String   @db.VarChar(255)
   phone     String   @unique
+  auth      Auth     @default(USER)          
   products  Product[]
   company   Company  @relation(fields: [companyId], references: [id])
   companyId Int      @map("company_id")
@@ -41,4 +42,10 @@ model Product{
   creatorId Int      @map("creator_id")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+enum Auth {
+  ADMIN
+  STAFF
+  USER
 }

@@ -40,6 +40,7 @@ handler.post(async (req: any, res: NextApiResponse) => {
     const data = {
       ...req.body,
       imageUrl,
+      company: { connect: { id: session?.user.companyId } },
       creator: { connect: { email: session?.user?.email } },
     };
     const createdProduct = await prisma.product.create({ data });

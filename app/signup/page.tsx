@@ -1,34 +1,32 @@
 "use client";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import Seo from "components/Seo";
-import { Title, Box, Row, Btn, Text } from "styles/styled";
+import { useMutation } from "react-query";
+import { signUpUser } from "utill/api";
+import { SignUpCompany } from "types/api";
+
+import { Title, Box, Row, Btn, Text, SubTitle } from "styles/styled";
 import {
+  CompanyContainer,
   ErrorText,
   Form,
   FormContainer,
   Input,
   InputContainer,
   SubmitBtn,
+  UserContainer,
 } from "styles/form-style";
-import { useMutation } from "react-query";
-import { ISignUpUser, signUpUser } from "utill/api";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-
-interface IForm {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  phone: string;
-}
 
 export default function SignUp() {
   const router = useRouter();
   const formSchema = yup.object({
+    companyName: yup.string().required("회사명을 입력해주세요."),
+    companyNumber: yup.number().required("사업자 등록번호를 입력해주세요."),
     email: yup
       .string()
       .required("이메일을 입력해주세요.")
@@ -61,23 +59,28 @@ export default function SignUp() {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
-  } = useForm<IForm>({
+  } = useForm<SignUpCompany>({
     mode: "onChange",
     reValidateMode: "onChange",
     resolver: yupResolver(formSchema),
   });
   const [errorMessage, setErrorMessage] = useState<string>();
-  const signUpMutation = useMutation((info: ISignUpUser) => signUpUser(info), {
-    onError: (data: any) => {
-      setErrorMessage(data.response?.data.message);
-    },
-    onSuccess: (data) => {
-      alert(data.message);
-      router.push("/signin");
-    },
-  });
-  const onSubmit = (data: IForm) => {
+  const signUpMutation = useMutation(
+    (info: SignUpCompany) => signUpUser(info),
+    {
+      onError: (data: any) => {
+        setErrorMessage(data.response?.data.message);
+      },
+      onSuccess: (data) => {
+        alert(data.message);
+        router.push("/signin");
+      },
+    }
+  );
+  const onSubmit = (data: SignUpCompany) => {
     const info = {
+      companyName: data.companyName,
+      companyNumber: data.companyNumber,
       email: data.email,
       password: data.password,
       name: data.name,
@@ -96,48 +99,77 @@ export default function SignUp() {
         <Box>
           <Title>회원 가입</Title>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
-            <InputContainer>
-              <Input
-                {...register("email")}
-                type="text"
-                placeholder="이메일을 입력해주세요."
-              />
-            </InputContainer>
-            {errors.password && (
-              <ErrorText>{errors.password.message}</ErrorText>
-            )}
-            <InputContainer>
-              <Input
-                {...register("password")}
-                type="password"
-                placeholder="비밀번호를 입력해주세요."
-                autoComplete="off"
-              />
-            </InputContainer>
-            {errors.passwordConfirm && (
-              <ErrorText>{errors.passwordConfirm.message}</ErrorText>
-            )}
-            <InputContainer>
-              <Input
-                {...register("passwordConfirm")}
-                type="password"
-                placeholder="비밀번호 확인"
-                autoComplete="off"
-              />
-            </InputContainer>
-            {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
-            <InputContainer>
-              <Input {...register("name")} placeholder="이름을 입력해주세요." />
-            </InputContainer>
-            {errors.phone && <ErrorText>{errors.phone.message}</ErrorText>}
-            <InputContainer>
-              <Input
-                type="tel"
-                {...register("phone")}
-                placeholder="전화번호를 입력해주세요."
-              />
-            </InputContainer>
+            <CompanyContainer>
+              <SubTitle>Company Info</SubTitle>
+              {errors.companyName && (
+                <ErrorText>{errors.companyName.message}</ErrorText>
+              )}
+              <InputContainer>
+                <Input
+                  {...register("companyName")}
+                  type="text"
+                  placeholder="회사명을 입력해주세요."
+                />
+              </InputContainer>
+              {errors.companyNumber && (
+                <ErrorText>{errors.companyNumber.message}</ErrorText>
+              )}
+              <InputContainer>
+                <Input
+                  {...register("companyNumber")}
+                  type="text"
+                  placeholder="사업자 등록번호를 입력해주세요."
+                />
+              </InputContainer>
+            </CompanyContainer>
+            <UserContainer>
+              <SubTitle>User Info</SubTitle>
+              {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
+              <InputContainer>
+                <Input
+                  {...register("email")}
+                  type="text"
+                  placeholder="이메일을 입력해주세요."
+                />
+              </InputContainer>
+              {errors.password && (
+                <ErrorText>{errors.password.message}</ErrorText>
+              )}
+              <InputContainer>
+                <Input
+                  {...register("password")}
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요."
+                  autoComplete="off"
+                />
+              </InputContainer>
+              {errors.passwordConfirm && (
+                <ErrorText>{errors.passwordConfirm.message}</ErrorText>
+              )}
+              <InputContainer>
+                <Input
+                  {...register("passwordConfirm")}
+                  type="password"
+                  placeholder="비밀번호 확인"
+                  autoComplete="off"
+                />
+              </InputContainer>
+              {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
+              <InputContainer>
+                <Input
+                  {...register("name")}
+                  placeholder="이름을 입력해주세요."
+                />
+              </InputContainer>
+              {errors.phone && <ErrorText>{errors.phone.message}</ErrorText>}
+              <InputContainer>
+                <Input
+                  type="tel"
+                  {...register("phone")}
+                  placeholder="전화번호를 입력해주세요."
+                />
+              </InputContainer>
+            </UserContainer>
             <SubmitBtn disabled={!(isValid && isDirty)}>가입하기</SubmitBtn>
           </Form>
           {errorMessage && (

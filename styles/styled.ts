@@ -30,11 +30,17 @@ export const Box = styled.main`
   flex-direction: column;
 `;
 
-export const Title = styled.h3`
+export const Title = styled.h1`
   color: ${(props) => props.theme.textColor};
   font-weight: 600;
   font-size: 2em;
   margin-bottom: 16px;
+`;
+export const SubTitle = styled.h3`
+  color: ${(props) => props.theme.textColor};
+  font-weight: 500;
+  font-size: 1.2em;
+  margin-bottom: 8px;
 `;
 
 export const Text = styled.span`

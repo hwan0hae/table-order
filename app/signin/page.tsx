@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import Seo from "components/Seo";
-import { Title, Box, Row, Btn } from "styles/styled";
+import { Title, Box, Row, Btn, Text } from "styles/styled";
 import {
   ErrorText,
   Form,
@@ -16,11 +16,7 @@ import {
 } from "styles/form-style";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
-
-interface IForm {
-  email: string;
-  password: string;
-}
+import { SignInUser } from "types/api";
 
 export default function SignIn() {
   const router = useRouter();
@@ -43,13 +39,13 @@ export default function SignIn() {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
-  } = useForm<IForm>({
+  } = useForm<SignInUser>({
     mode: "onChange",
     reValidateMode: "onChange",
     resolver: yupResolver(formSchema),
   });
 
-  const onSubmit = async (data: IForm) => {
+  const onSubmit = async (data: SignInUser) => {
     const email = data.email;
     const password = data.password;
 
@@ -103,7 +99,7 @@ export default function SignIn() {
         </Box>
         <Box>
           <Row>
-            <span>계정이 없으신가요? </span>
+            <Text>계정이 없으신가요? </Text>
             <Link href="/signup">
               <Btn>회원가입</Btn>
             </Link>
