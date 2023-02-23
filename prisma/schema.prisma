@@ -7,24 +7,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Company {
+  id            Int     @id @default(autoincrement())
+  name          String  
+  companyNumber Int     @map("company_number")
+  users         User[]
+  products      Product[]
+}
+
 model User {
-  phone     String   @unique
+  id        Int      @id @default(autoincrement())
   email     String   @unique
-  name      String   @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  idx       Int      @id @default(autoincrement())
   password  String
+  name      String   @db.VarChar(255)
+  phone     String   @unique
   products  Product[]
+  company   Company  @relation(fields: [companyId], references: [id])
+  companyId Int      @map("company_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  
 }
 
 model Product{
-  idx       Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(255)
   price     String?
   description String? 
-  imageUrl  String?
-  creator   User @relation(fields: [creatorId], references: [idx])  
-  creatorId Int
+  imageUrl  String?  @map("image_url")
+  company   Company  @relation(fields: [companyId], references: [id])
+  companyId Int      @map("company_id")
+  creator   User     @relation(fields: [creatorId], references: [id])  
+  creatorId Int      @map("creator_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
