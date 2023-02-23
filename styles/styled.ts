@@ -37,6 +37,10 @@ export const Title = styled.h3`
   margin-bottom: 16px;
 `;
 
+export const Text = styled.span`
+  color: ${(props) => props.theme.textColor};
+`;
+
 export const Row = styled.div`
   display: flex;
   flex-direction: row;

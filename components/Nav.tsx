@@ -133,7 +133,7 @@ export default function Nav() {
               <>
                 <Btn onClick={() => router.push("/signin")}>로그인</Btn>
                 <Link href={"/signup"}>
-                  <Btn>회원가입</Btn>
+                  <Btn>회원 가입</Btn>
                 </Link>
               </>
             )}

@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import Seo from "components/Seo";
-import { Title, Wrapper, Box, Row, Btn } from "styles/styled";
+import { Title, Box, Row, Btn, Text } from "styles/styled";
 import {
   ErrorText,
   Form,
@@ -89,7 +89,7 @@ export default function SignUp() {
   return (
     <>
       <Seo
-        title={"회원가입"}
+        title={"회원 가입"}
         description={"테이블오더 회원가입 페이지입니다."}
       />
       <FormContainer>
@@ -148,7 +148,7 @@ export default function SignUp() {
         </Box>
         <Box>
           <Row>
-            <span>계정이 있으신가요? </span>
+            <Text>계정이 있으신가요? </Text>
             <Link href="/signin">
               <Btn>로그인</Btn>
             </Link>

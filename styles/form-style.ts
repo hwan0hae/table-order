@@ -64,7 +64,7 @@ export const SubmitBtn = styled.button<{ disabled?: boolean }>`
   margin-top: 15px;
   border-radius: 5px;
   font-weight: 500;
-
+  border: 1px solid ${(props) => props.theme.borderLine};
   cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 
   &:hover {
