@@ -29,20 +29,7 @@ export default function Menu() {
               <>
                 <Product
                   key={product.idx}
-                  name={product.name}
-                  price={product.price}
-                  description={product.description}
-                  imageUrl={product.imageUrl}
-                />
-                <Product
-                  key={product.idx}
-                  name={product.name}
-                  price={product.price}
-                  description={product.description}
-                  imageUrl={product.imageUrl}
-                />
-                <Product
-                  key={product.idx}
+                  idx={product.idx}
                   name={product.name}
                   price={product.price}
                   description={product.description}

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import styled from "styled-components";
 
 const Container = styled.article`
@@ -47,15 +48,24 @@ const Price = styled.span`
 `;
 
 interface IPost {
+  idx: number;
   name: string;
   price: string | null;
   description: string | null;
   imageUrl: string | null;
 }
-export default function Product({ name, price, description, imageUrl }: IPost) {
-  console.log(imageUrl);
+export default function Product({
+  idx,
+  name,
+  price,
+  description,
+  imageUrl,
+}: IPost) {
+  const router = useRouter();
+  const pathname = usePathname();
+
   return (
-    <Container>
+    <Container onClick={() => router.push(`${pathname}/${idx}`)}>
       <Image
         src={""}
         alt={`${name} 이미지`}

@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Seo title={"홈"} description={"테이블 오더의 홈입니다."} />
-      <div>홈</div>
+      <div style={{ height: "calc(100vh - 60px)" }}>홈</div>
     </>
   );
 }

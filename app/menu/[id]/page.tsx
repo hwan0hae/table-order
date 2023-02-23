@@ -1,16 +1,15 @@
 "use client";
 import Seo from "components/Seo";
-import { useSearchParams, usePathname } from "next/navigation";
 
 export default function Detail({ params }: { params: { id: string } }) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
+  // client 보이는 url 및 헤더 수정도 생각
 
   return (
     <>
-      <Seo title={""} description={`${".."}의 상세 페이지 입니다.`} />
-      <h1>{`searchParams: ${searchParams.get("id")}`}</h1>
-      <h1>{`pathname: ${pathname}`}</h1>
+      <Seo
+        title={params.id}
+        description={`${params.id}의 상세 페이지 입니다.`}
+      />
       <h1>{`params:${params.id}`}</h1>
     </>
   );
