@@ -17,7 +17,7 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const Box = styled.main`
+export const Box = styled.section`
   background-color: ${(props) => props.theme.containerColor};
   width: 100%;
   margin-bottom: 10px;
@@ -74,10 +74,47 @@ export const MenuNavContainer = styled.aside`
   margin-bottom: 8px;
 `;
 
-export const List = styled.section`
+export const List = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, auto));
   justify-content: space-evenly;
   grid-gap: 16px;
+`;
+
+export const TableContainer = styled.div`
+  overflow: auto;
+  width: 100%;
+`;
+
+export const TableBox = styled.table`
+  border: solid 0.5px ${(props) => props.theme.borderLine};
+  border-collapse: collapse;
+  color: ${(props) => props.theme.textColor};
+  margin: 8px;
+`;
+
+export const Th = styled.th`
+  border: solid 0.5px ${(props) => props.theme.borderLine};
+  padding: 6px 12px;
+  font-weight: 600;
+  background-color: gray;
+`;
+
+export const Td = styled.td`
+  border: solid 0.5px ${(props) => props.theme.borderLine};
+  padding: 6px 12px;
+  font-weight: 400;
+`;
+
+export const Edit = styled(Btn)`
+  background-color: #00aaff;
+  border-radius: 15px;
+  white-space: nowrap;
+`;
+
+export const Delete = styled(Btn)`
+  background-color: #e01414;
+  border-radius: 15px;
+  white-space: nowrap;
 `;

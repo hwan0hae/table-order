@@ -22,3 +22,9 @@ export async function getMenuList() {
 
   return request.data;
 }
+
+export async function getUserList() {
+  const request = await axios.get(`/api/users`);
+
+  return request.data;
+}

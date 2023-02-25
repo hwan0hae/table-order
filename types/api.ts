@@ -16,7 +16,7 @@ export type SignUpUser = {
   passwordConfirm?: string;
   name: string;
   phone: string;
-  auth: string;
+  auth?: string;
   companyName?: string;
 };
 
@@ -31,4 +31,14 @@ export type ProductData = {
   price: string;
   description: string;
   imageUrl: string;
+};
+
+export type UserData = {
+  id: number;
+  email: string;
+  name: string;
+  phone: string;
+  auth: string;
+  createdAt: Date;
+  updatedAt: Date;
 };

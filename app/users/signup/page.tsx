@@ -74,7 +74,7 @@ export default function SignUp() {
     },
     onSuccess: (data) => {
       alert(data.message);
-      router.push("/menu");
+      router.push("/users");
     },
   });
   const onSubmit = (data: SignUpUser) => {
