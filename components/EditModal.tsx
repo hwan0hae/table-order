@@ -53,6 +53,7 @@ export default function EditModal({ userData }: EditModalData) {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
+    reset,
   } = useForm<EditUserForm>({
     mode: "onChange",
     reValidateMode: "onChange",
@@ -62,6 +63,7 @@ export default function EditModal({ userData }: EditModalData) {
       name,
       phone,
       auth,
+      status,
     },
   });
   const userEditMutation = useMutation(
@@ -93,6 +95,9 @@ export default function EditModal({ userData }: EditModalData) {
   };
 
   useEffect(() => {
+    reset(userData);
+  }, [reset, userData]);
+  useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (ModalRef.current && !ModalRef.current.contains(e.target as Node)) {
         setOnClicked(false);
@@ -101,7 +106,6 @@ export default function EditModal({ userData }: EditModalData) {
     window.addEventListener("mousedown", handleClick);
     return () => window.removeEventListener("mousedown", handleClick);
   }, [ModalRef]);
-
   return (
     <>
       <EditBtn onClick={() => setOnClicked(true)}>수정</EditBtn>
