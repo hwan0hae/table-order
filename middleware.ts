@@ -1,4 +1,3 @@
-// export { default } from "next-auth/middleware";
 import type { NextRequest, NextFetchEvent } from "next/server";
 import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
@@ -11,35 +10,40 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   const token = await getToken({ req, secret, raw: false });
 
   const { pathname } = req.nextUrl;
-  //로그인후 - 로그인,회원가입 접근 제한
-  if (pathname.startsWith("/signin") || pathname.startsWith("/signup")) {
-    if (token) {
+  if (token) {
+    console.log("로그인");
+    //로그인후 - 로그인,회원가입 접근 제한
+    if (pathname.startsWith("/signin") || pathname.startsWith("/signup")) {
       return NextResponse.redirect(new URL("/", req.url));
     }
-  }
-  //비로그인시 - 정보 접근 제한
-  if (
-    pathname.startsWith("/menu") ||
-    pathname.startsWith("/coupon") ||
-    pathname.startsWith("/notify")
-  ) {
-    if (!token) {
+    // 권한 없는 사용자 - 회원관리 접근 제한
+    if (pathname.includes("/users")) {
+      if (token.auth === "OWNER") {
+        return NextResponse.next();
+      } else {
+        return NextResponse.redirect(new URL("/", req.url));
+      }
+    }
+    return NextResponse.next();
+  } else {
+    //비로그인시 - 접근 제한
+    if (pathname.startsWith("/signin") || pathname.startsWith("/signup")) {
+      return NextResponse.next();
+    } else {
       return NextResponse.redirect(new URL("/signin", req.url));
     }
   }
-  //비로그인시 or 권한 없는 사용자 - 회원관리 접근 제한
-  if (pathname.startsWith("/users")) {
-    if (!token) {
-      return NextResponse.redirect(new URL("/signin", req.url));
-    }
-    if (token.auth !== "OWNER") {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
-  }
-
-  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/menu", "/coupon", "/notify", "/users", "/signin", "/signup"],
+  matcher: [
+    "/menu/:path*",
+    "/coupon",
+    "/notify",
+    "/users/:path*",
+    "/signin",
+    "/signup",
+  ],
 };
+
+//url path을 admin, owner 이런식으로해서 나누는것도 //ㅇㅇ
