@@ -58,7 +58,7 @@ export default function Users() {
           <>
             <Text>회원 수: {data.length}</Text>
             <TableContainer>
-              <Table tableHeader={tableHeader} userData={data} />
+              <Table tableHeader={tableHeader} usersData={data} />
             </TableContainer>
           </>
         )}

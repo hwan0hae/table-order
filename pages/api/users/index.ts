@@ -12,6 +12,7 @@ export default async function handler(
     const users = await prisma.user.findMany({
       where: {
         companyId: session?.user?.companyId,
+        status: "true",
       },
       select: {
         id: true,
@@ -19,6 +20,7 @@ export default async function handler(
         name: true,
         phone: true,
         auth: true,
+        status: true,
         createdAt: true,
         updatedAt: true,
       },

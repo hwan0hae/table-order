@@ -19,8 +19,7 @@ import {
   UserContainer,
 } from "styles/form-style";
 import { useSession } from "next-auth/react";
-
-const AUTH: string[] = ["ADMIN", "STAFF", "USER"];
+import { AUTH } from "types/data";
 
 export default function SignUp() {
   const router = useRouter();

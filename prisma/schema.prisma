@@ -22,6 +22,7 @@ model User {
   name      String   @db.VarChar(255)
   phone     String   @unique
   auth      Auth     @default(USER)          
+  status    Status  @default(true)
   products  Product[]
   company   Company  @relation(fields: [companyId], references: [id])
   companyId Int      @map("company_id")
@@ -50,4 +51,10 @@ enum Auth {
   ADMIN
   STAFF
   USER
+}
+
+enum Status  {
+  false  @map("0")
+  true   @map("1")
+  standby @map("2")
 }

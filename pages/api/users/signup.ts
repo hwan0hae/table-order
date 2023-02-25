@@ -53,7 +53,7 @@ export default async function handler(
       message: "회원이 추가되었습니다.",
     });
   } catch (error: any) {
-    console.error("/api/auth/signup >> ", error);
+    console.error("/api/users/signup >> ", error);
 
     if (error.constructor.name === PrismaClientKnownRequestError.name) {
       const errorType = error.meta?.target[0];

@@ -39,6 +39,16 @@ export type UserData = {
   name: string;
   phone: string;
   auth: string;
+  status: string;
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type EditUserData = {
+  id: number;
+  email: string;
+  name: string;
+  phone: string;
+  auth: string;
+  status: string;
 };

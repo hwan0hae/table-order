@@ -36,6 +36,12 @@ export const authOptions: NextAuthOptions = {
           where: { email },
         });
         if (!exUser) throw new Error("존재하지 않는 이메일입니다.");
+        if (exUser.status === "false") {
+          throw new Error("회원탈퇴한 계정입니다. 고객센터에 문의해주세요.");
+        }
+        if (exUser.status === "standby") {
+          throw new Error("정지되어있는 계정입니다. 고객센터에 문의해주세요.");
+        }
         const result = await bcrypt.compare(password, exUser.password);
         if (!result) throw new Error("비밀번호가 일치하지 않습니다.");
 

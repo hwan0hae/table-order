@@ -57,27 +57,32 @@ export const Preview = styled.img`
 
 export const SubmitBtn = styled.button<{ disabled?: boolean }>`
   background-color: ${(props) => (props.disabled ? "#FFFFE0" : "#FFD700")};
-
   color: black;
-  border: none;
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 30px;
-  margin-top: 15px;
+  padding: 8px 12px;
   border-radius: 5px;
-  font-weight: 500;
+  font-weight: 600;
   border: 1px solid ${(props) => props.theme.borderLine};
   cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 
   &:hover {
-    filter: ${(props) => (props.disabled ? "none" : "brightness(1.2)")};
+    filter: ${(props) => (props.disabled ? "none" : "brightness(1.3)")};
   }
   &:active {
-    filter: ${(props) => (props.disabled ? "none" : "brightness(0.8)")};
+    filter: ${(props) => (props.disabled ? "none" : "brightness(0.7)")};
   }
 `;
+
+export const EditSubmitBtn = styled(SubmitBtn)`
+  white-space: nowrap;
+  background-color: ${(props) => (props.disabled ? " #6690cc" : " #00aaff")};
+  color: white;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+`;
+
 export const ErrorText = styled.p`
   margin: 0;
   color: red;

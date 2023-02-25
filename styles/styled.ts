@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -51,6 +52,7 @@ export const Row = styled.div`
   display: flex;
   flex-direction: row;
   gap: 12px;
+  margin: 12px 0;
   align-items: center;
   justify-content: center;
 `;
@@ -85,6 +87,19 @@ export const List = styled.div`
 export const TableContainer = styled.div`
   overflow: auto;
   width: 100%;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.textColor};
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: ${(props) => props.theme.borderLine};
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 export const TableBox = styled.table`
@@ -107,14 +122,45 @@ export const Td = styled.td`
   font-weight: 400;
 `;
 
-export const Edit = styled(Btn)`
+export const EditBtn = styled(Btn)`
   background-color: #00aaff;
   border-radius: 15px;
   white-space: nowrap;
+  color: white;
 `;
 
-export const Delete = styled(Btn)`
+export const DeleteBtn = styled(Btn)`
   background-color: #e01414;
   border-radius: 15px;
   white-space: nowrap;
+  color: white;
+`;
+
+export const Overlay = styled(motion.div).attrs({
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+})`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+`;
+
+export const Modal = styled(motion.div).attrs({
+  initial: { scale: 2 },
+  animate: { scale: 1 },
+})`
+  width: 400px;
+  margin: 40px;
+  box-shadow: -2px 3px 3px rgba(0, 0, 0, 0.1), -5px 5px 10px rgba(0, 0, 0, 0.03);
+
+  overflow: hidden;
+  z-index: 20;
 `;
