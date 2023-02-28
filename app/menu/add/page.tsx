@@ -18,6 +18,7 @@ import { useMutation } from "react-query";
 import { menuAdd } from "utill/api";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 interface IForm {
   name: string;
@@ -27,6 +28,7 @@ interface IForm {
 
 function MenuAdd() {
   const router = useRouter();
+  const { data: session } = useSession();
   const formSchema = yup.object({
     name: yup.string().required("메뉴 이름을 입력해주세요."),
   });
@@ -68,7 +70,8 @@ function MenuAdd() {
     formData.append("name", data.name);
     formData.append("price", String(data.price));
     formData.append("description", data.description);
-    formData.append("file", imgFile);
+    formData.append("dir", `${String(session?.user?.companyId)}/menu`);
+    formData.append("image", imgFile);
 
     addMutation.mutate(formData);
   };

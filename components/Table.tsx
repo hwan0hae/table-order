@@ -18,10 +18,10 @@ export default function Table({ tableHeader, usersData }: UserTable) {
       </thead>
       <tbody>
         {usersData.map((data, index) => (
-          <tr key={index}>
+          <tr key={data.id}>
             {/* headerKey를 순회하면서 key를 가져옴 */}
             {headerKey.map((key) => (
-              <Td key={key + index}>
+              <Td key={key + data.id}>
                 {/* key로 객체의 값을 출력 */}
                 {key === "no" ? (
                   index

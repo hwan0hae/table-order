@@ -63,6 +63,7 @@ export const SubmitBtn = styled.button<{ disabled?: boolean }>`
   padding: 8px 12px;
   border-radius: 5px;
   font-weight: 600;
+  margin-top: 8px;
   border: 1px solid ${(props) => props.theme.borderLine};
   cursor: ${(props) => (props.disabled ? "default" : "pointer")};
 
@@ -81,6 +82,7 @@ export const EditSubmitBtn = styled(SubmitBtn)`
   border-radius: 0;
   width: auto;
   height: auto;
+  margin-top: 0px;
 `;
 
 export const ErrorText = styled.p`

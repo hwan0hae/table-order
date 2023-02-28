@@ -28,9 +28,9 @@ export type SignInUser = {
 export type ProductData = {
   id: number;
   name: string;
-  price: string;
-  description: string;
-  imageUrl: string;
+  price?: string;
+  description?: string;
+  imageUrl?: string;
 };
 
 export type UserData = {

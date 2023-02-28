@@ -1,6 +1,7 @@
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styled from "styled-components";
+import { ProductData } from "types/api";
 
 const Container = styled.article`
   width: 230px;
@@ -19,6 +20,13 @@ const Container = styled.article`
   &:hover {
     scale: 1.05;
   }
+`;
+const Image = styled.img`
+  top: -50px;
+  position: relative;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
 `;
 const Content = styled.div`
   display: flex;
@@ -47,42 +55,25 @@ const Price = styled.span`
   margin-top: auto;
 `;
 
-interface IPost {
-  idx: number;
-  name: string;
-  price: string | null;
-  description: string | null;
-  imageUrl: string | null;
-}
 export default function Product({
-  idx,
+  id,
   name,
   price,
   description,
   imageUrl,
-}: IPost) {
-  const router = useRouter();
+}: ProductData) {
   const pathname = usePathname();
 
   return (
-    <Container onClick={() => router.push(`${pathname}/${idx}`)}>
-      <Image
-        src={""}
-        alt={`${name} 이미지`}
-        width={150}
-        height={150}
-        style={{
-          backgroundColor: "red",
-          top: "-50px",
-          position: "relative",
-          margin: "0 auto",
-        }}
-      />
-      <Content>
-        <Title>{name}</Title>
-        <Description>{description}</Description>
-        <Price> {price}원</Price>
-      </Content>
-    </Container>
+    <Link href={`${pathname}/${id}`}>
+      <Container>
+        <Image src={imageUrl} alt={`${name} 이미지`} />
+        <Content>
+          <Title>{name}</Title>
+          <Description>{description}</Description>
+          <Price> {price}원</Price>
+        </Content>
+      </Container>
+    </Link>
   );
 }
