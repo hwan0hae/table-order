@@ -3,14 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import { useMutation } from "react-query";
 import { Box, Btn, DeleteBtn, Modal, Overlay, Row, Text } from "styles/styled";
 import { DeleteModalData } from "types/data";
-import { UserDelete } from "utill/api";
+import { userDelete } from "utill/api";
 
 export default function DeleteModal({ id, title }: DeleteModalData) {
   const ModalRef = useRef<HTMLDivElement>(null);
   const [onClicked, setOnClicked] = useState<boolean>(false);
   const userDeleteMutation = useMutation(
     "userDelete",
-    (id: number) => UserDelete(id),
+    (id: number) => userDelete(id),
     {
       onError: (data: any) => {
         alert(data.response?.data.message);

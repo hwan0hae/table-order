@@ -47,6 +47,7 @@ export const TextArea = styled.textarea`
   background-color: ${(props) => props.theme.bgColor};
   border-radius: 3px;
   height: 80px;
+  width: 100%;
   margin-bottom: 8px;
 `;
 export const Preview = styled.img`

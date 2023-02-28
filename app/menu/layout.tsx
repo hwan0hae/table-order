@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { Container, MenuNavContainer } from "styles/styled";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   return (
     <Container>
       <MenuNavContainer>

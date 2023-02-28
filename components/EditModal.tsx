@@ -26,7 +26,7 @@ import {
 } from "styles/styled";
 import { AUTH, EditModalData, EditUserForm } from "types/data";
 import { useForm } from "react-hook-form";
-import { UserEdit } from "utill/api";
+import { userEdit } from "utill/api";
 import { EditUserData } from "types/api";
 
 export default function EditModal({ userData }: EditModalData) {
@@ -68,7 +68,7 @@ export default function EditModal({ userData }: EditModalData) {
   });
   const userEditMutation = useMutation(
     "userEdit",
-    (info: EditUserData) => UserEdit(info),
+    (info: EditUserData) => userEdit(info),
     {
       onError: (data: any) => {
         alert(data.response?.data.message);
@@ -97,6 +97,7 @@ export default function EditModal({ userData }: EditModalData) {
   useEffect(() => {
     reset(userData);
   }, [reset, userData]);
+
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (ModalRef.current && !ModalRef.current.contains(e.target as Node)) {

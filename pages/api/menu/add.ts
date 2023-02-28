@@ -3,7 +3,7 @@ import fs from "fs";
 import prisma from "utill/prismaClient";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
-import imageUploader from "utill/imageUploader";
+import { imageUploader } from "utill/awsS3";
 
 //stream 사용을 위하여 fasle 처리  > 질문
 export const config = {
@@ -19,11 +19,6 @@ handler.use(middleware);
 handler.post(async (req: any, res: NextApiResponse) => {
   const session = await getSession({ req });
   const imageUrl = await req.file.location;
-  console.log(imageUrl);
-
-  // const { path } = req.file;
-  // console.log(path);
-  // const imageUrl = `${process.env.NEXTAUTH_URL}/${path}`;
 
   try {
     const { dir, ...menuInfo } = req.body;

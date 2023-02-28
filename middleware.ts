@@ -16,7 +16,6 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
       return NextResponse.redirect(new URL("/", req.url));
     }
     // 권한 없는 사용자 - 회원관리 접근 제한
-    console.log(token.auth);
     if (pathname.includes("/users")) {
       if (token.auth === "OWNER") {
         return NextResponse.next();
@@ -47,7 +46,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 
 export const config = {
   matcher: [
-    // "/menu/:path*",
+    "/menu/:path*",
     "/coupon",
     "/notify",
     "/users/:path*",

@@ -24,4 +24,10 @@ export type EditUserForm = {
   status: string;
 };
 
+export type ProductFormData = {
+  name: string;
+  price?: string;
+  description?: string;
+};
+
 export const AUTH: string[] = ["ADMIN", "STAFF", "USER"];

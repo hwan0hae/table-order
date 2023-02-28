@@ -52,3 +52,8 @@ export type EditUserData = {
   auth: string;
   status: string;
 };
+
+export type ProductDelete = {
+  id: number;
+  companyId: number;
+};

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { EditUserData, SignUpUser } from "types/api";
+import { EditUserData, ProductDelete, SignUpUser } from "types/api";
 
 /** users api */
 export async function signUpUser(data: SignUpUser) {
@@ -12,13 +12,13 @@ export async function getUserList() {
 
   return request.data;
 }
-export async function UserDelete(id: number) {
+export async function userDelete(id: number) {
   const data = { id };
   const request = await axios.post(`/api/users/delete`, data);
 
   return request.data;
 }
-export async function UserEdit(data: EditUserData) {
+export async function userEdit(data: EditUserData) {
   const request = await axios.post(`/api/users/edit`, data);
 
   return request.data;
@@ -37,6 +37,12 @@ export async function menuAdd(formData: FormData) {
 
 export async function getMenuList() {
   const request = await axios.get("/api/menu/list");
+
+  return request.data;
+}
+
+export async function productDelete(data: ProductDelete) {
+  const request = await axios.post(`/api/menu/delete`, data);
 
   return request.data;
 }

@@ -19,12 +19,7 @@ import { menuAdd } from "utill/api";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-
-interface IForm {
-  name: string;
-  price: number;
-  description: string;
-}
+import { ProductFormData } from "types/data";
 
 function MenuAdd() {
   const router = useRouter();
@@ -36,7 +31,7 @@ function MenuAdd() {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
-  } = useForm<IForm>({
+  } = useForm<ProductFormData>({
     mode: "onChange",
     reValidateMode: "onSubmit",
     resolver: yupResolver(formSchema),
@@ -64,7 +59,7 @@ function MenuAdd() {
     setPreview(URL.createObjectURL(file));
   };
 
-  const onSubmit = (data: IForm) => {
+  const onSubmit = (data: ProductFormData) => {
     const formData = new FormData();
 
     formData.append("name", data.name);
