@@ -1,5 +1,5 @@
 import axios from "axios";
-import { EditUserData, ProductDelete, SignUpUser } from "types/api";
+import { EditUserData, SignUpUser } from "types/api";
 
 /** users api */
 export async function signUpUser(data: SignUpUser) {
@@ -41,8 +41,19 @@ export async function getMenuList() {
   return request.data;
 }
 
-export async function productDelete(data: ProductDelete) {
+export async function productDelete(id: number) {
+  const data = { id };
   const request = await axios.post(`/api/menu/delete`, data);
+
+  return request.data;
+}
+
+export async function productEdit(formData: FormData) {
+  const config = {
+    headers: { "content-type": "multipart/form-data" },
+  };
+
+  const request = await axios.post("/api/menu/edit", formData, config);
 
   return request.data;
 }

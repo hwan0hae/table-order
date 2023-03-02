@@ -1,5 +1,4 @@
 import nextConnect from "next-connect";
-import fs from "fs";
 import prisma from "utill/prismaClient";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
@@ -18,9 +17,13 @@ const middleware = imageUploader.single("image");
 handler.use(middleware);
 handler.post(async (req: any, res: NextApiResponse) => {
   const session = await getSession({ req });
-  const imageUrl = await req.file.location;
 
   try {
+    let imageUrl = "";
+    if (req.file) {
+      imageUrl = await req.file.location;
+    }
+
     const { dir, ...menuInfo } = req.body;
     const data = {
       ...menuInfo,
@@ -43,5 +46,3 @@ handler.post(async (req: any, res: NextApiResponse) => {
   }
 });
 export default handler;
-
-//중복사진 안들어가는 이슈

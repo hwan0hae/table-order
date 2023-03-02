@@ -20,14 +20,7 @@ export default function Menu() {
         {isLoading ? null : (
           <List>
             {data?.map((product) => (
-              <Product
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                price={product.price}
-                description={product.description}
-                imageUrl={product.imageUrl}
-              />
+              <Product key={product.id} productData={product} />
             ))}
           </List>
         )}

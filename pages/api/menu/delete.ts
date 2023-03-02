@@ -1,14 +1,15 @@
 import prisma from "utill/prismaClient";
 import { NextApiRequest, NextApiResponse } from "next";
 import { imageDeleteCommand } from "utill/awsS3";
-import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const { id, companyId } = req.body;
+    const session = await getSession({ req });
+    const { id } = req.body;
 
     const imageUrl = await prisma.product.findFirst({
       where: {
@@ -18,7 +19,7 @@ export default async function handler(
         imageUrl: true,
       },
     });
-    const dir = `${companyId}/menu`;
+    const dir = `${session?.user?.companyId}/menu`;
     const path = Object.values(imageUrl)[0].substring(
       Object.values(imageUrl)[0].indexOf(dir)
     );

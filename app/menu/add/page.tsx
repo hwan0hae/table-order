@@ -63,10 +63,12 @@ function MenuAdd() {
     const formData = new FormData();
 
     formData.append("name", data.name);
-    formData.append("price", String(data.price));
+    formData.append("price", data.price);
     formData.append("description", data.description);
     formData.append("dir", `${String(session?.user?.companyId)}/menu`);
-    formData.append("image", imgFile);
+    if (imgFile) {
+      formData.append("image", imgFile);
+    }
 
     addMutation.mutate(formData);
   };

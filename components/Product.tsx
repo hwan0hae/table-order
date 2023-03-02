@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import { useMutation } from "react-query";
 import {
   EditSubmitBtn,
@@ -10,8 +9,7 @@ import {
   Form,
   Input,
   InputContainer,
-  Radio,
-  RadioText,
+  Preview,
   TextArea,
   UserContainer,
 } from "styles/form-style";
@@ -19,7 +17,6 @@ import {
   Box,
   Btn,
   DeleteBtn,
-  EditBtn,
   Modal,
   Overlay,
   Row,
@@ -29,9 +26,10 @@ import {
 import { AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { ProductFormData } from "types/data";
-import { ProductData, ProductDelete } from "types/api";
+import { ProductData } from "types/api";
 import { useSession } from "next-auth/react";
-import { productDelete } from "utill/api";
+import { productDelete, productEdit } from "utill/api";
+import { onImgChange } from "utill/utill";
 
 const Container = styled.article`
   width: 230px;
@@ -80,16 +78,14 @@ const Price = styled.span`
   margin-top: auto;
 `;
 
-export default function Product({
-  id,
-  name,
-  price,
-  description,
-  imageUrl,
-}: ProductData) {
+export default function Product({ productData }: { productData: ProductData }) {
+  const { id, name, price, description, imageUrl } = productData;
   const { data: session } = useSession();
 
   const ModalRef = useRef<HTMLDivElement>(null);
+  const imgInput = useRef<HTMLInputElement>(null);
+  const [imgFile, setImgFile] = useState<File>();
+  const [preview, setPreview] = useState<string>();
   const [onClicked, setOnClicked] = useState<boolean>(false);
   const formSchema = yup.object({
     name: yup.string().required("메뉴 이름을 입력해주세요"),
@@ -109,9 +105,19 @@ export default function Product({
       description,
     },
   });
-  const productDeleteMutation = useMutation(
-    "productDelete",
-    (data: ProductDelete) => productDelete(data),
+  const productDeleteMutation = useMutation((id: number) => productDelete(id), {
+    onError: (data: any) => {
+      alert(data.response?.data.message);
+    },
+    onSuccess: (data) => {
+      alert(data.message);
+    },
+    onSettled: () => {
+      setOnClicked(false);
+    },
+  });
+  const productEditMutation = useMutation(
+    (formData: FormData) => productEdit(formData),
     {
       onError: (data: any) => {
         alert(data.response?.data.message);
@@ -124,14 +130,34 @@ export default function Product({
       },
     }
   );
-  const onDelete = () => {
-    const data = { id, companyId: session?.user.companyId };
-    productDeleteMutation.mutate(data);
+
+  const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = await onImgChange(e);
+
+    setImgFile(file);
+    setPreview(URL.createObjectURL(file));
   };
-  const onSubmit = () => {};
-  // useEffect(() => {
-  //   reset(userData);
-  // }, [reset, userData]);
+  const onDelete = () => {
+    productDeleteMutation.mutate(id);
+  };
+
+  const onSubmit = (data: ProductFormData) => {
+    const formData = new FormData();
+
+    formData.append("id", String(id));
+    formData.append("name", data.name);
+    formData.append("price", data.price);
+    formData.append("description", data.description);
+    formData.append("dir", `${String(session?.user?.companyId)}/menu`);
+    if (imgFile) {
+      console.log("aa");
+      formData.append("image", imgFile);
+    }
+    productEditMutation.mutate(formData);
+  };
+  useEffect(() => {
+    reset(productData);
+  }, [reset, productData]);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -186,11 +212,20 @@ export default function Product({
                       type="text"
                       placeholder="메뉴 설명을 입력해주세요."
                     />
+                    <Btn
+                      type="button"
+                      onClick={() => {
+                        imgInput.current?.click();
+                      }}
+                    >
+                      이미지 수정
+                    </Btn>
+                    {preview && <Preview src={preview} alt="preview-img" />}
                   </UserContainer>
                   <Row>
                     <EditSubmitBtn
                       type="submit"
-                      disabled={!(isValid && isDirty)}
+                      disabled={!((isValid && isDirty) || imgFile)}
                     >
                       수정
                     </EditSubmitBtn>
@@ -208,6 +243,13 @@ export default function Product({
                 </Form>
               </Box>
             </Modal>
+            <input
+              type="file"
+              hidden
+              accept="image/*"
+              onChange={onChange}
+              ref={imgInput}
+            />
           </Overlay>
         ) : null}
       </AnimatePresence>
