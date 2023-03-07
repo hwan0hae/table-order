@@ -24,12 +24,9 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
       }
     }
     if (pathname.includes("/add")) {
-      console.log("aaa");
       if (token.auth === "OWNER" || token.auth === "ADMIN") {
-        console.log("bb");
         return NextResponse.next();
       } else {
-        console.log("cc");
         return NextResponse.redirect(new URL("/", req.url));
       }
     }
