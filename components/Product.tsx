@@ -16,7 +16,7 @@ import {
 import {
   Box,
   Btn,
-  DeleteBtn,
+  RedBtn,
   Modal,
   Overlay,
   Row,
@@ -229,13 +229,9 @@ export default function Product({ productData }: { productData: ProductData }) {
                     >
                       수정
                     </EditSubmitBtn>
-                    <DeleteBtn
-                      type="button"
-                      onClick={onDelete}
-                      style={{ borderRadius: 0 }}
-                    >
+                    <RedBtn type="button" onClick={onDelete}>
                       메뉴 삭제
-                    </DeleteBtn>
+                    </RedBtn>
                     <Btn type="button" onClick={() => setOnClicked(false)}>
                       취소
                     </Btn>

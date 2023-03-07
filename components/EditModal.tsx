@@ -17,7 +17,7 @@ import {
 import {
   Box,
   Btn,
-  EditBtn,
+  BlueBtn,
   Modal,
   Overlay,
   Row,
@@ -109,7 +109,9 @@ export default function EditModal({ userData }: EditModalData) {
   }, [ModalRef]);
   return (
     <>
-      <EditBtn onClick={() => setOnClicked(true)}>수정</EditBtn>
+      <BlueBtn onClick={() => setOnClicked(true)} style={{ borderRadius: 15 }}>
+        수정
+      </BlueBtn>
       <AnimatePresence>
         {onClicked && (
           <Overlay>

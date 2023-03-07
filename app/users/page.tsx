@@ -2,7 +2,7 @@
 
 import Table from "components/Table";
 import { useQuery } from "react-query";
-import { Box, TableContainer, Text, Title } from "styles/styled";
+import { Box, HorizontalScrollContainer, Text, Title } from "styles/styled";
 import { UserData } from "types/api";
 import { getUserList } from "utill/api";
 
@@ -57,9 +57,9 @@ export default function Users() {
         ) : (
           <>
             <Text>회원 수: {data.length}</Text>
-            <TableContainer>
+            <HorizontalScrollContainer>
               <Table tableHeader={tableHeader} usersData={data} />
-            </TableContainer>
+            </HorizontalScrollContainer>
           </>
         )}
       </Box>

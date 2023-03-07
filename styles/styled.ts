@@ -84,10 +84,17 @@ export const List = styled.div`
   grid-gap: 16px;
 `;
 
-export const TableContainer = styled.div`
-  overflow: auto;
+export const HorizontalScrollContainer = styled.div`
+  overflow-x: auto;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
 
+  div {
+    flex: 0 0 auto;
+  }
   &::-webkit-scrollbar {
     height: 5px;
   }
@@ -122,16 +129,14 @@ export const Td = styled.td`
   font-weight: 400;
 `;
 
-export const EditBtn = styled(Btn)`
+export const BlueBtn = styled(Btn)`
   background-color: #00aaff;
-  border-radius: 15px;
   white-space: nowrap;
   color: white;
 `;
 
-export const DeleteBtn = styled(Btn)`
+export const RedBtn = styled(Btn)`
   background-color: #e01414;
-  border-radius: 15px;
   white-space: nowrap;
   color: white;
 `;

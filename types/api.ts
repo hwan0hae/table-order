@@ -52,3 +52,15 @@ export type EditUserData = {
   auth: string;
   status: string;
 };
+
+export type OrderData = {
+  tableNo: number;
+  order: {
+    id: number;
+    name: string;
+    price: string;
+    description: string;
+    imageUrl: string;
+    count: number;
+  }[];
+};

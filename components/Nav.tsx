@@ -103,8 +103,8 @@ export default function Nav() {
           <Link href={"/coupon"}>
             <Item>쿠폰</Item>
           </Link>
-          <Link href={"/notify"}>
-            <Item>알림</Item>
+          <Link href={"/order"}>
+            <Item>주문</Item>
           </Link>
           {status === "loading" ? null : (
             <>

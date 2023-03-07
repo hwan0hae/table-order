@@ -45,7 +45,7 @@ export const config = {
   matcher: [
     "/menu/:path*",
     "/coupon",
-    "/notify",
+    "/order",
     "/users/:path*",
     "/signin",
     "/signup",

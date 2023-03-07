@@ -1,7 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useMutation } from "react-query";
-import { Box, Btn, DeleteBtn, Modal, Overlay, Row, Text } from "styles/styled";
+import { Box, Btn, RedBtn, Modal, Overlay, Row, Text } from "styles/styled";
 import { DeleteModalData } from "types/data";
 import { userDelete } from "utill/api";
 
@@ -39,7 +39,9 @@ export default function DeleteModal({ id, title }: DeleteModalData) {
 
   return (
     <>
-      <DeleteBtn onClick={() => setOnClicked(true)}>삭제</DeleteBtn>
+      <RedBtn onClick={() => setOnClicked(true)} style={{ borderRadius: 15 }}>
+        삭제
+      </RedBtn>
       <AnimatePresence>
         {onClicked && (
           <Overlay>
@@ -47,9 +49,9 @@ export default function DeleteModal({ id, title }: DeleteModalData) {
               <Box>
                 <Text>{title}를(을) 정말 삭제 하시겠습니까?</Text>
                 <Row>
-                  <DeleteBtn style={{ borderRadius: 0 }} onClick={onDelete}>
+                  <RedBtn style={{ borderRadius: 0 }} onClick={onDelete}>
                     삭제
-                  </DeleteBtn>
+                  </RedBtn>
                   <Btn onClick={() => setOnClicked(false)}>취소</Btn>
                 </Row>
               </Box>
