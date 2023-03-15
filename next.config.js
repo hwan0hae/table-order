@@ -9,11 +9,19 @@ const nextConfig = {
     // Required:
     appDir: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/:api*',
+        destination: 'http://localhost:8080/:api*',
+      },
+    ];
+  },
 
   webpack: (config, { isServer }) => {
     config.externals.push({
-      "utf-8-validate": "commonjs utf-8-validate",
-      bufferutil: "commonjs bufferutil",
+      'utf-8-validate': 'commonjs utf-8-validate',
+      bufferutil: 'commonjs bufferutil',
     });
     if (!isServer) {
       config.resolve.fallback = {
@@ -24,7 +32,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["localhost"],
+    domains: ['localhost'],
   },
 };
 
