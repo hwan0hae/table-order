@@ -28,7 +28,6 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
           return response;
         }
       }
-      console.log(refreshResponse.auth);
       //로그인후 - 로그인,회원가입 접근 제한
       if (pathname.startsWith('/signin') || pathname.startsWith('/signup')) {
         return NextResponse.redirect(new URL('/', req.url));

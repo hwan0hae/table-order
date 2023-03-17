@@ -5,7 +5,6 @@ import Nav from 'components/Nav';
 import Recoil from 'components/Recoil';
 import ReactQuery from 'components/ReactQuery';
 import ReactHotToast from 'components/ReactHotToast';
-import AuthContext from 'components/AuthContext';
 import { Wrapper } from 'styles/styled';
 import ThemeContext from 'components/ThemeContext';
 import Socket from 'components/Socket';
@@ -19,20 +18,18 @@ export default function RootLayout({ children }: IProps) {
     <html lang="ko_KR">
       <head />
       <body>
-        <AuthContext>
-          <Recoil>
-            <ReactQuery>
-              <ThemeContext>
-                <StyledComponentsRegistry>
-                  {/* <Socket> */}
-                  <Nav />
-                  <Wrapper> {children} </Wrapper>
-                  {/* </Socket> */}
-                </StyledComponentsRegistry>
-              </ThemeContext>
-            </ReactQuery>
-          </Recoil>
-        </AuthContext>
+        <Recoil>
+          <ReactQuery>
+            <ThemeContext>
+              <StyledComponentsRegistry>
+                {/* <Socket> */}
+                <Nav />
+                <Wrapper> {children} </Wrapper>
+                {/* </Socket> */}
+              </StyledComponentsRegistry>
+            </ThemeContext>
+          </ReactQuery>
+        </Recoil>
         <ReactHotToast />
       </body>
     </html>

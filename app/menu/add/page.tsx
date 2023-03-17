@@ -1,6 +1,6 @@
-"use client";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
+'use client';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
 import {
   Form,
   Input,
@@ -8,32 +8,31 @@ import {
   Preview,
   SubmitBtn,
   TextArea,
-} from "styles/form-style";
-import { Box, Btn, Title } from "styles/styled";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { onImgChange } from "utill/utill";
-import { useRef, useState } from "react";
-import Seo from "components/Seo";
-import { useMutation } from "react-query";
-import { menuAdd } from "utill/api";
-import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { ProductFormData } from "types/data";
+} from 'styles/form-style';
+import { Box, Btn, Title } from 'styles/styled';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { onImgChange } from 'utill/utill';
+import { useRef, useState } from 'react';
+import Seo from 'components/Seo';
+import { useMutation } from 'react-query';
+import { menuAdd } from 'utill/api';
+import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { ProductFormData } from 'types/data';
 
+// 66번줄 comanyId 수정할것
 function MenuAdd() {
   const router = useRouter();
-  const { data: session } = useSession();
   const formSchema = yup.object({
-    name: yup.string().required("메뉴 이름을 입력해주세요."),
+    name: yup.string().required('메뉴 이름을 입력해주세요.'),
   });
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
   } = useForm<ProductFormData>({
-    mode: "onChange",
-    reValidateMode: "onSubmit",
+    mode: 'onChange',
+    reValidateMode: 'onSubmit',
     resolver: yupResolver(formSchema),
   });
   const imgInput = useRef<HTMLInputElement>(null);
@@ -45,7 +44,7 @@ function MenuAdd() {
     },
     onSuccess: (data) => {
       toast(data.message);
-      router.push("/menu");
+      router.push('/menu');
     },
     onSettled: () => {
       //get데이터  ? 혹은 페이지 이동되니까 안해도될지도
@@ -62,38 +61,38 @@ function MenuAdd() {
   const onSubmit = (data: ProductFormData) => {
     const formData = new FormData();
 
-    formData.append("name", data.name);
-    formData.append("price", data.price);
-    formData.append("description", data.description);
-    formData.append("dir", `${String(session?.user?.companyId)}/menu`);
+    formData.append('name', data.name);
+    formData.append('price', data.price);
+    formData.append('description', data.description);
+    formData.append('dir', `1/menu`);
     if (imgFile) {
-      formData.append("image", imgFile);
+      formData.append('image', imgFile);
     }
 
     addMutation.mutate(formData);
   };
   return (
     <>
-      <Seo title={"MenuAdd"} description={"메뉴 추가 페이지입니다."} />
+      <Seo title={'MenuAdd'} description={'메뉴 추가 페이지입니다.'} />
       <Box>
         <Title>Menu Add</Title>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputContainer>
             <Input
-              {...register("name")}
+              {...register('name')}
               type="text"
               placeholder="메뉴 이름을 입력해주세요."
             />
           </InputContainer>
           <InputContainer>
             <Input
-              {...register("price")}
+              {...register('price')}
               type="number"
               placeholder="가격을 입력해주세요."
             />
           </InputContainer>
           <TextArea
-            {...register("description")}
+            {...register('description')}
             type="text"
             placeholder="메뉴 설명을 입력해주세요."
           />
