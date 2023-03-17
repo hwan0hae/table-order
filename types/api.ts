@@ -1,32 +1,50 @@
+import { AxiosError, AxiosResponse } from 'axios';
 import { Auth } from './data';
 
+/** mutation response */
+export interface IMutatedValue {
+  message: string;
+  data?: any;
+}
+interface IResponsesError {
+  message?: string;
+}
+export interface IMutatedError extends AxiosError<IResponsesError> {}
+
 /**회사 회원가입 */
-export interface SignUpCompany {
+export interface ISignUpData {
   companyName: string;
-  companyNumber: number;
+  companyNumber: string;
   email: string;
   password: string;
   name: string;
   phone: string;
+  auth: Auth;
 }
-
-/**유저 회원가입 */
-export interface SignUpUser {
+/** member 회원가입 */
+export interface IMemberSignUpData {
   email: string;
   password: string;
-  passwordConfirm?: string;
   name: string;
   phone: string;
-  auth?: Auth;
-  companyName?: string;
+  auth: Auth;
 }
 
-export interface SignInUser {
+export interface ISignInData {
   email: string;
   password: string;
 }
+export interface ISessionUserData {
+  id: number;
+  email: string;
+  name: string;
+  phone: string;
+  auth: string;
+  companyId: number;
+  companyName: string;
+}
 
-export interface ProductData {
+export interface IProductData {
   id: number;
   name: string;
   price?: string;
@@ -34,7 +52,7 @@ export interface ProductData {
   imageUrl?: string;
 }
 
-export interface UserData {
+export interface IUserData {
   id: number;
   email: string;
   name: string;
@@ -45,7 +63,7 @@ export interface UserData {
   updatedAt: Date;
 }
 
-export interface EditUserData {
+export interface IEditUserData {
   id: number;
   email: string;
   name: string;
@@ -54,7 +72,7 @@ export interface EditUserData {
   status: string;
 }
 
-export interface OrderData {
+export interface IOrderData {
   tableNo: number;
   order: {
     id: number;

@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { JWTPayload, jwtVerify } from 'jose';
+import { useEffect, useRef } from 'react';
 
 /** 첫 렌더링 막기 */
 export const useDidMountEffect = (func: () => any, deps: Array<any>) => {
@@ -16,15 +17,30 @@ export const onImgChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 
   const target = e.currentTarget;
   const files = (target.files as FileList)[0];
-  target.value = "";
+  target.value = '';
   if (files === undefined) {
     return;
   }
   // 파일 용량 체크
   if (files.size > FILE_SIZE_MAX_LIMIT) {
-    alert("업로드 가능한 최대 용량은 5MB입니다. ");
+    alert('업로드 가능한 최대 용량은 5MB입니다. ');
     return;
   }
 
   return files;
 };
+
+export async function verify(
+  token: string,
+  secret: string
+): Promise<JWTPayload> {
+  try {
+    const { payload } = await jwtVerify(
+      token,
+      new TextEncoder().encode(secret)
+    );
+    return payload;
+  } catch (error) {
+    return error;
+  }
+}

@@ -1,12 +1,12 @@
-import { atom } from "recoil";
-import { OrderData } from "types/api";
+import { atom } from 'recoil';
+import { IOrderData } from 'types/api';
 
 export const isDarkAtom = atom<boolean>({
-  key: "isDark",
+  key: 'isDark',
   default: true,
 });
 
-export const orderDataAtom = atom<OrderData[]>({
-  key: "orderData",
+export const orderDataAtom = atom<IOrderData[]>({
+  key: 'orderData',
   default: [],
 });

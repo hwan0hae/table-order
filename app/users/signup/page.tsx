@@ -5,8 +5,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { signUpUser } from 'utill/api';
-import { SignUpUser } from 'types/api';
+
 import { Title, Box, SubTitle, Row } from 'styles/styled';
 import {
   ErrorText,
@@ -19,7 +18,9 @@ import {
   UserContainer,
 } from 'styles/form-style';
 import { useSession } from 'next-auth/react';
-import { AUTH } from 'types/data';
+import { MEMBER_AUTH, MemberSignUpForm } from 'types/data';
+import { memberSignUp } from 'utill/api';
+import { IMemberSignUpData } from 'types/api';
 
 export default function SignUp() {
   const router = useRouter();
@@ -58,7 +59,7 @@ export default function SignUp() {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
-  } = useForm<SignUpUser>({
+  } = useForm<MemberSignUpForm>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: yupResolver(formSchema),
@@ -67,23 +68,25 @@ export default function SignUp() {
     },
   });
   const [errorMessage, setErrorMessage] = useState<string>();
-  const signUpMutation = useMutation((info: SignUpUser) => signUpUser(info), {
-    onError: (data: any) => {
-      setErrorMessage(data.response?.data.message);
-    },
-    onSuccess: (data) => {
-      alert(data.message);
-      router.push('/users');
-    },
-  });
-  const onSubmit = (data: SignUpUser) => {
+  const signUpMutation = useMutation(
+    (info: IMemberSignUpData) => memberSignUp(info),
+    {
+      onError: (data: any) => {
+        setErrorMessage(data.response?.data.message);
+      },
+      onSuccess: (data) => {
+        alert(data.message);
+        router.push('/users');
+      },
+    }
+  );
+  const onSubmit = (data: MemberSignUpForm) => {
     const info = {
       email: data.email,
       password: data.password,
       name: data.name,
       phone: data.phone,
       auth: data.auth,
-      companyName: session?.user?.companyName,
     };
     signUpMutation.mutate(info);
   };
@@ -135,7 +138,7 @@ export default function SignUp() {
             />
           </InputContainer>
           <Row>
-            {AUTH.map((auth) => (
+            {MEMBER_AUTH.map((auth) => (
               <label key={auth}>
                 <Radio {...register('auth')} value={auth} />
                 <RadioText>{auth}</RadioText>

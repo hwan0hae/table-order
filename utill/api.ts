@@ -1,12 +1,36 @@
-import axios from "axios";
-import { EditUserData, SignUpUser } from "types/api";
+import axios, { AxiosResponse } from 'axios';
+import {
+  IEditUserData,
+  IMemberSignUpData,
+  ISignInData,
+  ISignUpData,
+} from 'types/api';
 
-/** users api */
-export async function signUpUser(data: SignUpUser) {
-  const request = await axios.post("/api/users/signup", data);
+/** user api */
+export async function signUp(data: ISignUpData) {
+  const request = await axios.post('/api/v1/web/user/signup', data);
 
   return request.data;
 }
+
+export async function memberSignUp(data: IMemberSignUpData) {
+  const request = await axios.post('/api/v1/web/user/member/signup', data);
+
+  return request.data;
+}
+
+export async function signIn(data: ISignInData) {
+  const request = await axios.post('/api/v1/web/user/signin', data);
+
+  return request.data;
+}
+
+export async function logout() {
+  const request = await axios.post('/api/v1/web/user/logout');
+
+  return request.data;
+}
+
 export async function getUserList() {
   const request = await axios.get(`/api/users`);
 
@@ -18,7 +42,7 @@ export async function userDelete(id: number) {
 
   return request.data;
 }
-export async function userEdit(data: EditUserData) {
+export async function userEdit(data: IEditUserData) {
   const request = await axios.post(`/api/users/edit`, data);
 
   return request.data;
@@ -27,16 +51,16 @@ export async function userEdit(data: EditUserData) {
 /** menu api */
 export async function menuAdd(formData: FormData) {
   const config = {
-    headers: { "content-type": "multipart/form-data" },
+    headers: { 'content-type': 'multipart/form-data' },
   };
 
-  const request = await axios.post("/api/menu/add", formData, config);
+  const request = await axios.post('/api/menu/add', formData, config);
 
   return request.data;
 }
 
 export async function getMenuList() {
-  const request = await axios.get("/api/menu/list");
+  const request = await axios.get('/api/menu/list');
 
   return request.data;
 }
@@ -50,10 +74,10 @@ export async function productDelete(id: number) {
 
 export async function productEdit(formData: FormData) {
   const config = {
-    headers: { "content-type": "multipart/form-data" },
+    headers: { 'content-type': 'multipart/form-data' },
   };
 
-  const request = await axios.post("/api/menu/edit", formData, config);
+  const request = await axios.post('/api/menu/edit', formData, config);
 
   return request.data;
 }

@@ -1,20 +1,28 @@
-import { UserData } from './api';
+import { IUserData } from './api';
 
 /**회사 회원가입 유효성 폼  */
-export interface SignUpCompanyForm {
+export interface CompanySignUpForm {
   companyName: string;
-  companyNumber: number;
+  companyNumber: string;
   email: string;
   password: string;
   passwordConfirm: string;
   name: string;
   phone: string;
 }
+export interface MemberSignUpForm {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  name: string;
+  phone: string;
+  auth: Auth;
+}
 
 /** user Table > react-table 데이터 타입 정의 */
 export interface UserTable {
   tableHeader: { accessor: string; value: string }[];
-  usersData: UserData[];
+  usersData: IUserData[];
 }
 
 /** 삭제 모달로 보내지는 props 타입 정의 */
@@ -24,7 +32,7 @@ export interface DeleteModalData {
 }
 /** 수정 모달로 보내지는 props 타입 정의 */
 export interface EditModalData {
-  userData: UserData;
+  userData: IUserData;
 }
 
 export interface EditUserForm {
@@ -41,6 +49,7 @@ export interface ProductFormData {
   description?: string;
 }
 
-export type Auth = 'ADMIN' | 'STAFF' | 'USER';
+export type Auth = 'OWNER' | 'ADMIN' | 'STAFF' | 'USER';
 
-export const AUTH: Auth[] = ['ADMIN', 'STAFF', 'USER'];
+//MEMBER로 바꿀것
+export const MEMBER_AUTH: Auth[] = ['ADMIN', 'STAFF', 'USER'];

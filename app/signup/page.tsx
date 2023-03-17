@@ -7,9 +7,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import Seo from 'components/Seo';
 import { useMutation } from 'react-query';
-import { signUpUser } from 'utill/api';
-import { SignUpCompany } from 'types/api';
-
 import { Title, Box, Row, Btn, Text, SubTitle } from 'styles/styled';
 import {
   CompanyContainer,
@@ -21,7 +18,9 @@ import {
   SubmitBtn,
   UserContainer,
 } from 'styles/form-style';
-import { SignUpCompanyForm } from 'types/data';
+import { Auth, CompanySignUpForm } from 'types/data';
+import { IMutatedError, IMutatedValue, ISignUpData } from 'types/api';
+import { signUp } from 'utill/api';
 
 export default function SignUp() {
   const router = useRouter();
@@ -60,32 +59,28 @@ export default function SignUp() {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
-  } = useForm<SignUpCompanyForm>({
+  } = useForm<CompanySignUpForm>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: yupResolver(formSchema),
   });
   const [errorMessage, setErrorMessage] = useState<string>();
-  const signUpMutation = useMutation(
-    (info: SignUpCompany) => signUpUser(info),
+  const signUpMutation = useMutation<IMutatedValue, IMutatedError, ISignUpData>(
+    (info) => signUp(info),
     {
-      onError: (data: any) => {
-        setErrorMessage(data.response?.data.message);
+      onError: (res) => {
+        setErrorMessage(res.response?.data.message);
       },
-      onSuccess: (data) => {
-        alert(data.message);
+      onSuccess: (res) => {
+        alert(res.message);
         router.push('/signin');
       },
     }
   );
-  const onSubmit = (data: SignUpCompany) => {
+  const onSubmit = (data: CompanySignUpForm) => {
     const info = {
-      companyName: data.companyName,
-      companyNumber: data.companyNumber,
-      email: data.email,
-      password: data.password,
-      name: data.name,
-      phone: data.phone,
+      ...data,
+      auth: 'OWNER' as Auth,
     };
     signUpMutation.mutate(info);
   };
