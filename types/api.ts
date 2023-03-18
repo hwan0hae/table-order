@@ -52,7 +52,7 @@ export interface IProductData {
   imageUrl?: string;
 }
 
-export interface IUserData {
+export interface IMemberData {
   id: number;
   email: string;
   name: string;

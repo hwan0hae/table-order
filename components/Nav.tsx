@@ -133,7 +133,7 @@ export default function Nav() {
           {user && (
             <>
               {user.auth === 'OWNER' ? (
-                <Link href={'/users'}>
+                <Link href={'/member'}>
                   <Item>회원관리</Item>
                 </Link>
               ) : null}

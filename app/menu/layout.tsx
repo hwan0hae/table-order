@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { Tab } from "components/Tab";
-import { useSession } from "next-auth/react";
-import { Container, MenuNavContainer } from "styles/styled";
+import { Tab } from 'components/Tab';
+import { Container, MenuNavContainer } from 'styles/styled';
+import { ISessionUserData } from 'types/api';
+import { useSessionStorage } from 'usehooks-ts';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { data: session, status } = useSession();
+  const [user, setUser] = useSessionStorage<ISessionUserData | undefined>(
+    'user',
+    undefined
+  );
   return (
     <Container>
       <MenuNavContainer>
-        <Tab path="/menu" item={{ text: "Menu" }} />
-        {status === "loading" ? null : (
-          <>
-            {session?.user.auth === "OWNER" ? (
-              <Tab path="/menu" item={{ text: "Menu Add", slug: "add" }} />
-            ) : null}
-          </>
-        )}
+        <Tab path="/menu" item={{ text: 'Menu' }} />
+        {user.auth === 'OWNER' ? (
+          <Tab path="/menu" item={{ text: 'Menu Add', slug: 'add' }} />
+        ) : null}
       </MenuNavContainer>
 
       <div>{children}</div>

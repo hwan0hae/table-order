@@ -13,12 +13,6 @@ export async function signUp(data: ISignUpData) {
   return request.data;
 }
 
-export async function memberSignUp(data: IMemberSignUpData) {
-  const request = await axios.post('/api/v1/web/user/member/signup', data);
-
-  return request.data;
-}
-
 export async function signIn(data: ISignInData) {
   const request = await axios.post('/api/v1/web/user/signin', data);
 
@@ -31,19 +25,26 @@ export async function logout() {
   return request.data;
 }
 
-export async function getUserList() {
-  const request = await axios.get(`/api/users`);
-
-  return request.data;
-}
 export async function userDelete(id: number) {
   const data = { id };
-  const request = await axios.post(`/api/users/delete`, data);
+  const request = await axios.post(`/api/v1/web/user/delete`, data);
 
   return request.data;
 }
 export async function userEdit(data: IEditUserData) {
-  const request = await axios.post(`/api/users/edit`, data);
+  const request = await axios.post(`/api/v1/web/user/edit`, data);
+
+  return request.data;
+}
+
+export async function getMemberList() {
+  const request = await axios.get(`/api/v1/web/member/list`);
+
+  return request.data;
+}
+
+export async function memberSignUp(data: IMemberSignUpData) {
+  const request = await axios.post('/api/v1/web/member/signup', data);
 
   return request.data;
 }

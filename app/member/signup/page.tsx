@@ -17,14 +17,12 @@ import {
   SubmitBtn,
   UserContainer,
 } from 'styles/form-style';
-import { useSession } from 'next-auth/react';
-import { MEMBER_AUTH, MemberSignUpForm } from 'types/data';
+import { MEMBER_AUTH, IMemberSignUpForm } from 'types/data';
 import { memberSignUp } from 'utill/api';
-import { IMemberSignUpData } from 'types/api';
+import { IMemberSignUpData, IMutatedError, IMutatedValue } from 'types/api';
 
 export default function SignUp() {
   const router = useRouter();
-  const { data: session } = useSession();
   const formSchema = yup.object({
     email: yup
       .string()
@@ -59,7 +57,7 @@ export default function SignUp() {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
-  } = useForm<MemberSignUpForm>({
+  } = useForm<IMemberSignUpForm>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: yupResolver(formSchema),
@@ -68,19 +66,21 @@ export default function SignUp() {
     },
   });
   const [errorMessage, setErrorMessage] = useState<string>();
-  const signUpMutation = useMutation(
-    (info: IMemberSignUpData) => memberSignUp(info),
-    {
-      onError: (data: any) => {
-        setErrorMessage(data.response?.data.message);
-      },
-      onSuccess: (data) => {
-        alert(data.message);
-        router.push('/users');
-      },
-    }
-  );
-  const onSubmit = (data: MemberSignUpForm) => {
+  const signUpMutation = useMutation<
+    IMutatedValue,
+    IMutatedError,
+    IMemberSignUpData
+  >((info) => memberSignUp(info), {
+    onError: (res) => {
+      setErrorMessage(res.response?.data.message);
+    },
+    onSuccess: (res) => {
+      alert(res.message);
+      router.push('/member');
+    },
+  });
+
+  const onSubmit = (data: IMemberSignUpForm) => {
     const info = {
       email: data.email,
       password: data.password,

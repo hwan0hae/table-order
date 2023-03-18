@@ -1,19 +1,19 @@
-"use client";
-import Product from "components/Product";
-import Seo from "components/Seo";
-import { useQuery } from "react-query";
-import { Box, List, Title } from "styles/styled";
-import { ProductData } from "types/api";
-import { getMenuList } from "utill/api";
+'use client';
+import Product from 'components/Product';
+import Seo from 'components/Seo';
+import { useQuery } from 'react-query';
+import { Box, List, Title } from 'styles/styled';
+import { IProductData } from 'types/api';
+import { getMenuList } from 'utill/api';
 
 //나중에 옮길것
 
 export default function Menu() {
   //ssr할지 요기서할지 선택해야함!
-  const { data, isLoading } = useQuery<ProductData[]>("menuList", getMenuList);
+  const { data, isLoading } = useQuery<IProductData[]>('menuList', getMenuList);
   return (
     <>
-      <Seo title={"Menu"} description={"메뉴 페이지입니다."} />
+      <Seo title={'Menu'} description={'메뉴 페이지입니다.'} />
 
       <Box>
         <Title>Menu</Title>

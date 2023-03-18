@@ -33,7 +33,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
         return NextResponse.redirect(new URL('/', req.url));
       }
       // 권한 없는 사용자 - 회원관리 접근 제한
-      if (pathname.includes('/users')) {
+      if (pathname.includes('/member')) {
         if (refreshResponse.auth === 'OWNER') {
           return NextResponse.next();
         } else {
@@ -70,7 +70,7 @@ export const config = {
     '/menu/:path*',
     '/coupon',
     '/order',
-    '/users/:path*',
+    '/member/:path*',
     '/signin',
     '/signup',
   ],

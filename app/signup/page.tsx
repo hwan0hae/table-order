@@ -18,7 +18,7 @@ import {
   SubmitBtn,
   UserContainer,
 } from 'styles/form-style';
-import { Auth, CompanySignUpForm } from 'types/data';
+import { Auth, ICompanySignUpForm } from 'types/data';
 import { IMutatedError, IMutatedValue, ISignUpData } from 'types/api';
 import { signUp } from 'utill/api';
 
@@ -59,7 +59,7 @@ export default function SignUp() {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
-  } = useForm<CompanySignUpForm>({
+  } = useForm<ICompanySignUpForm>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: yupResolver(formSchema),
@@ -77,7 +77,7 @@ export default function SignUp() {
       },
     }
   );
-  const onSubmit = (data: CompanySignUpForm) => {
+  const onSubmit = (data: ICompanySignUpForm) => {
     const info = {
       ...data,
       auth: 'OWNER' as Auth,

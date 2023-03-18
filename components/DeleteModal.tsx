@@ -1,22 +1,22 @@
-import { AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { useMutation } from "react-query";
-import { Box, Btn, RedBtn, Modal, Overlay, Row, Text } from "styles/styled";
-import { DeleteModalData } from "types/data";
-import { userDelete } from "utill/api";
+import { AnimatePresence } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { useMutation } from 'react-query';
+import { Box, Btn, RedBtn, Modal, Overlay, Row, Text } from 'styles/styled';
+import { IMutatedError, IMutatedValue } from 'types/api';
+import { IDeleteModalData } from 'types/data';
+import { userDelete } from 'utill/api';
 
-export default function DeleteModal({ id, title }: DeleteModalData) {
+export default function DeleteModal({ id, title }: IDeleteModalData) {
   const ModalRef = useRef<HTMLDivElement>(null);
   const [onClicked, setOnClicked] = useState<boolean>(false);
-  const userDeleteMutation = useMutation(
-    "userDelete",
-    (id: number) => userDelete(id),
+  const userDeleteMutation = useMutation<IMutatedValue, IMutatedError, number>(
+    (id) => userDelete(id),
     {
-      onError: (data: any) => {
-        alert(data.response?.data.message);
+      onError: (res) => {
+        alert(res.response?.data.message);
       },
-      onSuccess: (data) => {
-        alert(data.message);
+      onSuccess: (res) => {
+        alert(res.message);
       },
       onSettled: () => {
         setOnClicked(false);
@@ -33,8 +33,8 @@ export default function DeleteModal({ id, title }: DeleteModalData) {
         setOnClicked(false);
       }
     };
-    window.addEventListener("mousedown", handleClick);
-    return () => window.removeEventListener("mousedown", handleClick);
+    window.addEventListener('mousedown', handleClick);
+    return () => window.removeEventListener('mousedown', handleClick);
   }, [ModalRef]);
 
   return (

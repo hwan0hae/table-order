@@ -24,12 +24,12 @@ import {
   SubTitle,
   Title,
 } from 'styles/styled';
-import { AUTH, EditModalData, EditUserForm } from 'types/data';
+import { MEMBER_AUTH, IEditModalData, IEditUserForm } from 'types/data';
 import { useForm } from 'react-hook-form';
 import { userEdit } from 'utill/api';
-import { EditUserData } from 'types/api';
+import { IEditUserData, IMutatedError, IMutatedValue } from 'types/api';
 
-export default function EditModal({ userData }: EditModalData) {
+export default function EditModal({ userData }: IEditModalData) {
   const { id, name, email, phone, auth, status } = userData;
 
   const ModalRef = useRef<HTMLDivElement>(null);
@@ -54,7 +54,7 @@ export default function EditModal({ userData }: EditModalData) {
     handleSubmit,
     formState: { errors, isValid, isDirty },
     reset,
-  } = useForm<EditUserForm>({
+  } = useForm<IEditUserForm>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: yupResolver(formSchema),
@@ -66,23 +66,23 @@ export default function EditModal({ userData }: EditModalData) {
       status,
     },
   });
-  const userEditMutation = useMutation(
-    'userEdit',
-    (info: EditUserData) => userEdit(info),
-    {
-      onError: (data: any) => {
-        alert(data.response?.data.message);
-      },
-      onSuccess: (data) => {
-        alert(data.message);
-      },
-      onSettled: () => {
-        setOnClicked(false);
-      },
-    }
-  );
+  const userEditMutation = useMutation<
+    IMutatedValue,
+    IMutatedError,
+    IEditUserData
+  >((info) => userEdit(info), {
+    onError: (res) => {
+      alert(res.response?.data.message);
+    },
+    onSuccess: (res) => {
+      alert(res.message);
+    },
+    onSettled: () => {
+      setOnClicked(false);
+    },
+  });
 
-  const onSubmit = (data: EditUserForm) => {
+  const onSubmit = (data: IEditUserForm) => {
     const info = {
       id,
       email: data.email,
@@ -161,7 +161,7 @@ export default function EditModal({ userData }: EditModalData) {
                         </label>
                       ) : (
                         <>
-                          {AUTH.map((auth) => (
+                          {MEMBER_AUTH.map((auth) => (
                             <label key={auth}>
                               <Radio {...register('auth')} value={auth} />
                               <RadioText>{auth}</RadioText>
