@@ -50,25 +50,25 @@ export async function memberSignUp(data: IMemberSignUpData) {
 }
 
 /** menu api */
-export async function menuAdd(formData: FormData) {
-  const config = {
-    headers: { 'content-type': 'multipart/form-data' },
-  };
-
-  const request = await axios.post('/api/menu/add', formData, config);
+export async function getMenuList() {
+  const request = await axios.get('/api/v1/web/menu/list');
 
   return request.data;
 }
 
-export async function getMenuList() {
-  const request = await axios.get('/api/menu/list');
+export async function productAdd(formData: FormData) {
+  const config = {
+    headers: { 'content-type': 'multipart/form-data' },
+  };
+
+  const request = await axios.post('/api/v1/web/menu/add', formData, config);
 
   return request.data;
 }
 
 export async function productDelete(id: number) {
   const data = { id };
-  const request = await axios.post(`/api/menu/delete`, data);
+  const request = await axios.post(`/api/v1/web/menu/delete`, data);
 
   return request.data;
 }
@@ -78,7 +78,7 @@ export async function productEdit(formData: FormData) {
     headers: { 'content-type': 'multipart/form-data' },
   };
 
-  const request = await axios.post('/api/menu/edit', formData, config);
+  const request = await axios.post('/api/v1/web/menu/edit', formData, config);
 
   return request.data;
 }

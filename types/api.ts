@@ -44,14 +44,6 @@ export interface ISessionUserData {
   companyName: string;
 }
 
-export interface IProductData {
-  id: number;
-  name: string;
-  price?: string;
-  description?: string;
-  imageUrl?: string;
-}
-
 export interface IMemberData {
   id: number;
   email: string;
@@ -82,4 +74,12 @@ export interface IOrderData {
     imageUrl: string;
     count: number;
   }[];
+}
+
+export interface IProductData {
+  id: number;
+  name: string;
+  price?: number;
+  description?: string;
+  image_url?: string;
 }

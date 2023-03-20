@@ -25,11 +25,16 @@ import {
 } from 'styles/styled';
 import { AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
-import { ProductFormData } from 'types/data';
-import { ProductData } from 'types/api';
-import { useSession } from 'next-auth/react';
+import { IProductFormData } from 'types/data';
+import {
+  IMutatedError,
+  IMutatedValue,
+  IProductData,
+  ISessionUserData,
+} from 'types/api';
 import { productDelete, productEdit } from 'utill/api';
 import { onImgChange } from 'utill/utill';
+import { useSessionStorage } from 'usehooks-ts';
 
 const Container = styled.article`
   width: 230px;
@@ -78,12 +83,18 @@ const Price = styled.span`
   margin-top: auto;
 `;
 
-export default function Product({ productData }: { productData: ProductData }) {
-  const { id, name, price, description, imageUrl } = productData;
-  const { data: session } = useSession();
-
+export default function Product({
+  productData,
+}: {
+  productData: IProductData;
+}) {
+  const { id, name, price, description, image_url } = productData;
   const ModalRef = useRef<HTMLDivElement>(null);
   const imgInput = useRef<HTMLInputElement>(null);
+  const [user, setUser] = useSessionStorage<ISessionUserData | undefined>(
+    'user',
+    undefined
+  );
   const [imgFile, setImgFile] = useState<File>();
   const [preview, setPreview] = useState<string>();
   const [onClicked, setOnClicked] = useState<boolean>(false);
@@ -95,7 +106,7 @@ export default function Product({ productData }: { productData: ProductData }) {
     handleSubmit,
     formState: { errors, isValid, isDirty },
     reset,
-  } = useForm<ProductFormData>({
+  } = useForm<IProductFormData>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: yupResolver(formSchema),
@@ -105,8 +116,12 @@ export default function Product({ productData }: { productData: ProductData }) {
       description,
     },
   });
-  const productDeleteMutation = useMutation((id: number) => productDelete(id), {
-    onError: (data: any) => {
+  const productDeleteMutation = useMutation<
+    IMutatedValue,
+    IMutatedError,
+    number
+  >((id) => productDelete(id), {
+    onError: (data) => {
       alert(data.response?.data.message);
     },
     onSuccess: (data) => {
@@ -116,20 +131,21 @@ export default function Product({ productData }: { productData: ProductData }) {
       setOnClicked(false);
     },
   });
-  const productEditMutation = useMutation(
-    (formData: FormData) => productEdit(formData),
-    {
-      onError: (data: any) => {
-        alert(data.response?.data.message);
-      },
-      onSuccess: (data) => {
-        alert(data.message);
-      },
-      onSettled: () => {
-        setOnClicked(false);
-      },
-    }
-  );
+  const productEditMutation = useMutation<
+    IMutatedValue,
+    IMutatedError,
+    FormData
+  >((formData) => productEdit(formData), {
+    onError: (data) => {
+      alert(data.response?.data.message);
+    },
+    onSuccess: (data) => {
+      alert(data.message);
+    },
+    onSettled: () => {
+      setOnClicked(false);
+    },
+  });
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = await onImgChange(e);
@@ -141,16 +157,14 @@ export default function Product({ productData }: { productData: ProductData }) {
     productDeleteMutation.mutate(id);
   };
 
-  const onSubmit = (data: ProductFormData) => {
+  const onSubmit = (data: IProductFormData) => {
     const formData = new FormData();
 
     formData.append('id', String(id));
     formData.append('name', data.name);
-    formData.append('price', data.price);
+    formData.append('price', String(data.price));
     formData.append('description', data.description);
-    formData.append('dir', `${String(session?.user?.companyId)}/menu`);
     if (imgFile) {
-      console.log('aa');
       formData.append('image', imgFile);
     }
     productEditMutation.mutate(formData);
@@ -171,7 +185,7 @@ export default function Product({ productData }: { productData: ProductData }) {
   return (
     <>
       <Container onClick={() => setOnClicked(true)}>
-        <Image src={imageUrl} alt={`${name} 이미지`} />
+        <Image src={image_url} alt={`${name} 이미지`} />
         <Content>
           <SubTitle style={{ fontSize: '1.7rem' }}>{name}</SubTitle>
           <Description>{description}</Description>
@@ -179,8 +193,7 @@ export default function Product({ productData }: { productData: ProductData }) {
         </Content>
       </Container>
       <AnimatePresence>
-        {onClicked &&
-        (session?.user?.auth === 'OWNER' || session?.user?.auth === 'ADMIN') ? (
+        {onClicked && (user?.auth === 'OWNER' || user?.auth === 'ADMIN') ? (
           <Overlay>
             <Modal ref={ModalRef}>
               <Box>

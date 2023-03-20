@@ -45,7 +45,7 @@ export interface IEditUserForm {
 
 export interface IProductFormData {
   name: string;
-  price?: string;
+  price?: number;
   description?: string;
 }
 

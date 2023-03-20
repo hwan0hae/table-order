@@ -15,10 +15,10 @@ import { onImgChange } from 'utill/utill';
 import { useRef, useState } from 'react';
 import Seo from 'components/Seo';
 import { useMutation } from 'react-query';
-import { menuAdd } from 'utill/api';
+import { productAdd } from 'utill/api';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { ProductFormData } from 'types/data';
+import { IProductFormData } from 'types/data';
 
 // 66번줄 comanyId 수정할것
 function MenuAdd() {
@@ -30,7 +30,7 @@ function MenuAdd() {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
-  } = useForm<ProductFormData>({
+  } = useForm<IProductFormData>({
     mode: 'onChange',
     reValidateMode: 'onSubmit',
     resolver: yupResolver(formSchema),
@@ -38,18 +38,21 @@ function MenuAdd() {
   const imgInput = useRef<HTMLInputElement>(null);
   const [imgFile, setImgFile] = useState<File>();
   const [preview, setPreview] = useState<string>();
-  const addMutation = useMutation((formData: FormData) => menuAdd(formData), {
-    onError: (data: any) => {
-      toast(data.response?.data.message);
-    },
-    onSuccess: (data) => {
-      toast(data.message);
-      router.push('/menu');
-    },
-    onSettled: () => {
-      //get데이터  ? 혹은 페이지 이동되니까 안해도될지도
-    },
-  });
+  const addMutation = useMutation(
+    (formData: FormData) => productAdd(formData),
+    {
+      onError: (data: any) => {
+        toast(data.response?.data.message);
+      },
+      onSuccess: (data) => {
+        toast(data.message);
+        router.push('/menu');
+      },
+      onSettled: () => {
+        //get데이터  ? 혹은 페이지 이동되니까 안해도될지도
+      },
+    }
+  );
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = await onImgChange(e);
@@ -58,13 +61,12 @@ function MenuAdd() {
     setPreview(URL.createObjectURL(file));
   };
 
-  const onSubmit = (data: ProductFormData) => {
+  const onSubmit = (data: IProductFormData) => {
     const formData = new FormData();
 
     formData.append('name', data.name);
-    formData.append('price', data.price);
+    formData.append('price', String(data.price));
     formData.append('description', data.description);
-    formData.append('dir', `1/menu`);
     if (imgFile) {
       formData.append('image', imgFile);
     }
