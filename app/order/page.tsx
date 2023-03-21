@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import OrderList from 'components/OrderList';
 import { useRecoilValue } from 'recoil';
 import { Box, HorizontalScrollContainer, Title } from 'styles/styled';

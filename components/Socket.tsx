@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSetRecoilState } from 'recoil';
 import { io } from 'socket.io-client';
 import { IOrderData } from 'types/api';

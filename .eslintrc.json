@@ -14,7 +14,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["prettier", "@typescript-eslint"],
+  "plugins": ["react", "prettier", "@typescript-eslint"],
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
@@ -24,6 +24,10 @@
     }
   },
   "rules": {
+    "react/react-in-jsx-scope": 0,
+    "globals": {
+      "React": "writable"
+    },
     "react/jsx-no-useless-fragment": [2, { "allowExpressions": true }],
     "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],

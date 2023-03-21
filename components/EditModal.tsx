@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { TableBox, Td, Th } from 'styles/styled';
 import { IMemberTable } from 'types/data';
 import DeleteModal from './DeleteModal';

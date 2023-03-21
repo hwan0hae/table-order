@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import Product from 'components/Product';
 import Seo from 'components/Seo';
 import { useQuery } from 'react-query';

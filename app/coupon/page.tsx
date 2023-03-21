@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-
 function Coupon() {
   return <div>Coupon</div>;
 }

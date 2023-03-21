@@ -1,4 +1,3 @@
-import React from 'react';
 import { IOrderData } from 'types/api';
 import styled from 'styled-components';
 import { BlueBtn, RedBtn, Row, SubTitle, Text } from 'styles/styled';

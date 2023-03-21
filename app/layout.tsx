@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import Nav from 'components/Nav';
 import Recoil from 'components/Recoil';
 import ReactQuery from 'components/ReactQuery';

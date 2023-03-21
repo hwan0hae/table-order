@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import Table from 'components/Table';
 import { useQuery } from 'react-query';
 import { Box, HorizontalScrollContainer, Text, Title } from 'styles/styled';
