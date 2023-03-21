@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactNode } from "react";
+import React from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 type Props = {
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
 const queryClient = new QueryClient();

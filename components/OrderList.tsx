@@ -1,6 +1,7 @@
-import { OrderData } from "types/api";
-import styled from "styled-components";
-import { BlueBtn, RedBtn, Row, SubTitle, Text } from "styles/styled";
+import React from 'react';
+import { IOrderData } from 'types/api';
+import styled from 'styled-components';
+import { BlueBtn, RedBtn, Row, SubTitle, Text } from 'styles/styled';
 
 const Container = styled.div`
   width: 360px;
@@ -24,10 +25,10 @@ const Menu = styled.div`
   justify-content: space-between;
 `;
 
-export default function OrderList({ data }: { data: OrderData }) {
+export default function OrderList({ data }: { data: IOrderData }) {
   return (
     <Container>
-      <SubTitle style={{ borderBottom: "1px solid" }}>
+      <SubTitle style={{ borderBottom: '1px solid' }}>
         Table No. {data.tableNo}
       </SubTitle>
       <OrderContainer>
@@ -38,9 +39,9 @@ export default function OrderList({ data }: { data: OrderData }) {
           </Menu>
         ))}
       </OrderContainer>
-      <Row style={{ marginTop: "auto" }}>
-        <BlueBtn style={{ width: "100%" }}>확인</BlueBtn>
-        <RedBtn style={{ width: "100%" }}>취소</RedBtn>
+      <Row style={{ marginTop: 'auto' }}>
+        <BlueBtn style={{ width: '100%' }}>확인</BlueBtn>
+        <RedBtn style={{ width: '100%' }}>취소</RedBtn>
       </Row>
     </Container>
   );

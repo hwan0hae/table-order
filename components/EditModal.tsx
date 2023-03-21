@@ -1,8 +1,7 @@
+import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { useMutation } from 'react-query';
 import {
   EditSubmitBtn,
@@ -24,10 +23,11 @@ import {
   SubTitle,
   Title,
 } from 'styles/styled';
-import { MEMBER_AUTH, IEditModalData, IEditUserForm } from 'types/data';
+import { IEditModalData, IEditUserForm } from 'types/data';
 import { useForm } from 'react-hook-form';
 import { userEdit } from 'utill/api';
 import { IEditUserData, IMutatedError, IMutatedValue } from 'types/api';
+import { MEMBER_AUTH } from 'types/type';
 
 export default function EditModal({ userData }: IEditModalData) {
   const { id, name, email, phone, auth, status } = userData;
@@ -155,16 +155,25 @@ export default function EditModal({ userData }: IEditModalData) {
                     </InputContainer>
                     <Row>
                       {auth === 'OWNER' ? (
-                        <label>
-                          <Radio {...register('auth')} value={auth} disabled />
+                        <label htmlFor="auth_radio">
+                          <Radio
+                            id="auth_radio"
+                            {...register('auth')}
+                            value={auth}
+                            disabled
+                          />
                           <RadioText>{auth}</RadioText>
                         </label>
                       ) : (
                         <>
-                          {MEMBER_AUTH.map((auth) => (
-                            <label key={auth}>
-                              <Radio {...register('auth')} value={auth} />
-                              <RadioText>{auth}</RadioText>
+                          {MEMBER_AUTH.map((memberAuth) => (
+                            <label key={memberAuth} htmlFor="auth_radio">
+                              <Radio
+                                id="auth_radio"
+                                {...register('auth')}
+                                value={memberAuth}
+                              />
+                              <RadioText>{memberAuth}</RadioText>
                             </label>
                           ))}
                         </>

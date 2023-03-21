@@ -1,4 +1,6 @@
 'use client';
+
+import React from 'react';
 import Link from 'next/link';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -31,6 +33,7 @@ export default function SignIn() {
     'user',
     undefined
   );
+
   const formSchema = yup.object({
     email: yup
       .string()
@@ -77,7 +80,7 @@ export default function SignIn() {
 
   return (
     <>
-      <Seo title={'로그인'} description={'테이블오더 로그인 페이지입니다.'} />
+      <Seo title="로그인" description="테이블오더 로그인 페이지입니다." />
       <FormContainer>
         <Box>
           <Title>로그인</Title>

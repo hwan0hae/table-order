@@ -1,5 +1,5 @@
+import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import { Box, Btn, RedBtn, Modal, Overlay, Row, Text } from 'styles/styled';
 import { IMutatedError, IMutatedValue } from 'types/api';
@@ -10,7 +10,7 @@ export default function DeleteModal({ id, title }: IDeleteModalData) {
   const ModalRef = useRef<HTMLDivElement>(null);
   const [onClicked, setOnClicked] = useState<boolean>(false);
   const userDeleteMutation = useMutation<IMutatedValue, IMutatedError, number>(
-    (id) => userDelete(id),
+    (data) => userDelete(data),
     {
       onError: (res) => {
         alert(res.response?.data.message);

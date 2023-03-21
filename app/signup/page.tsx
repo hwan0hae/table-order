@@ -1,6 +1,7 @@
 'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -18,9 +19,10 @@ import {
   SubmitBtn,
   UserContainer,
 } from 'styles/form-style';
-import { Auth, ICompanySignUpForm } from 'types/data';
+import { ICompanySignUpForm } from 'types/data';
 import { IMutatedError, IMutatedValue, ISignUpData } from 'types/api';
 import { signUp } from 'utill/api';
+import { Auth } from 'types/type';
 
 export default function SignUp() {
   const router = useRouter();
@@ -87,10 +89,7 @@ export default function SignUp() {
 
   return (
     <>
-      <Seo
-        title={'회원 가입'}
-        description={'테이블오더 회원가입 페이지입니다.'}
-      />
+      <Seo title="회원 가입" description="테이블오더 회원가입 페이지입니다." />
       <FormContainer>
         <Box>
           <Title>회원 가입</Title>

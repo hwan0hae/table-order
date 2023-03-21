@@ -1,6 +1,7 @@
 'use client';
 
-import { Tab } from 'components/Tab';
+import React from 'react';
+import Tab from 'components/Tab';
 import { Container, MenuNavContainer } from 'styles/styled';
 import { ISessionUserData } from 'types/api';
 import { useSessionStorage } from 'usehooks-ts';

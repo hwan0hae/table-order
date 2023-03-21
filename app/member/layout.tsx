@@ -1,13 +1,14 @@
 'use client';
 
+import React from 'react';
 import Seo from 'components/Seo';
-import { Tab } from 'components/Tab';
+import Tab from 'components/Tab';
 import { Container, MenuNavContainer } from 'styles/styled';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Seo title={'회원관리'} description={'회원관리 페이지입니다.'} />
+      <Seo title="회원관리" description="회원관리 페이지입니다." />
 
       <Container>
         <MenuNavContainer>

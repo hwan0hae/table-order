@@ -1,5 +1,5 @@
-import { AxiosError, AxiosResponse } from 'axios';
-import { Auth } from './data';
+import { AxiosError } from 'axios';
+import { Auth } from './type';
 
 /** mutation response */
 export interface IMutatedValue {
@@ -9,9 +9,9 @@ export interface IMutatedValue {
 interface IResponsesError {
   message?: string;
 }
-export interface IMutatedError extends AxiosError<IResponsesError> {}
+export type IMutatedError = AxiosError<IResponsesError>;
 
-/**회사 회원가입 */
+/** 회사 회원가입 */
 export interface ISignUpData {
   companyName: string;
   companyNumber: string;
@@ -81,5 +81,5 @@ export interface IProductData {
   name: string;
   price?: number;
   description?: string;
-  image_url?: string;
+  imageUrl?: string;
 }

@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   html,body {
     box-sizing: border-box;
     font-size: 100%;
@@ -43,3 +43,5 @@ footer, header, hgroup, main, menu, nav, section {
     sans-serif;
     }
 `;
+
+export default GlobalStyle;

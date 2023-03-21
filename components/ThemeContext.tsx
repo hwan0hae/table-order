@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { ReactChild } from "react";
-import { useRecoilValue } from "recoil";
-import { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme } from "styles/theme";
-import { isDarkAtom } from "utill/atoms";
+import React, { ReactChild } from 'react';
+import { useRecoilValue } from 'recoil';
+import { ThemeProvider } from 'styled-components';
+import { darkTheme, lightTheme } from 'styles/theme';
+import { isDarkAtom } from 'utill/atoms';
 
 type Props = {
   children: ReactChild;

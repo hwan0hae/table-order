@@ -1,11 +1,11 @@
 'use client';
-import { useState } from 'react';
+
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-
 import { Title, Box, SubTitle, Row } from 'styles/styled';
 import {
   ErrorText,
@@ -17,9 +17,10 @@ import {
   SubmitBtn,
   UserContainer,
 } from 'styles/form-style';
-import { MEMBER_AUTH, IMemberSignUpForm } from 'types/data';
+import { IMemberSignUpForm } from 'types/data';
 import { memberSignUp } from 'utill/api';
 import { IMemberSignUpData, IMutatedError, IMutatedValue } from 'types/api';
+import { MEMBER_AUTH } from 'types/type';
 
 export default function SignUp() {
   const router = useRouter();
@@ -139,8 +140,8 @@ export default function SignUp() {
           </InputContainer>
           <Row>
             {MEMBER_AUTH.map((auth) => (
-              <label key={auth}>
-                <Radio {...register('auth')} value={auth} />
+              <label key={auth} htmlFor="auth_radio">
+                <Radio id="auth_radio" {...register('auth')} value={auth} />
                 <RadioText>{auth}</RadioText>
               </label>
             ))}

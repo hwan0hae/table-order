@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const FormContainer = styled.div`
   display: flex;
@@ -57,7 +57,7 @@ export const Preview = styled.img`
 `;
 
 export const SubmitBtn = styled.button<{ disabled?: boolean }>`
-  background-color: ${(props) => (props.disabled ? "#FFFFE0" : "#FFD700")};
+  background-color: ${(props) => (props.disabled ? '#FFFFE0' : '#FFD700')};
   color: black;
   display: flex;
   justify-content: center;
@@ -66,19 +66,19 @@ export const SubmitBtn = styled.button<{ disabled?: boolean }>`
   font-weight: 600;
   margin-top: 8px;
   border: 1px solid ${(props) => props.theme.borderLine};
-  cursor: ${(props) => (props.disabled ? "default" : "pointer")};
+  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
 
   &:hover {
-    filter: ${(props) => (props.disabled ? "none" : "brightness(1.3)")};
+    filter: ${(props) => (props.disabled ? 'none' : 'brightness(1.3)')};
   }
   &:active {
-    filter: ${(props) => (props.disabled ? "none" : "brightness(0.7)")};
+    filter: ${(props) => (props.disabled ? 'none' : 'brightness(0.7)')};
   }
 `;
 
 export const EditSubmitBtn = styled(SubmitBtn)`
   white-space: nowrap;
-  background-color: ${(props) => (props.disabled ? " #6690cc" : " #00aaff")};
+  background-color: ${(props) => (props.disabled ? ' #6690cc' : ' #00aaff')};
   color: white;
   border-radius: 0;
   width: auto;
@@ -105,7 +105,7 @@ export const RadioText = styled.span`
   cursor: pointer;
 `;
 
-export const Radio = styled.input.attrs({ type: "radio" })`
+export const Radio = styled.input.attrs({ type: 'radio' })`
   &:checked + ${RadioText} {
     font-weight: 400;
     background: ${(props) => props.theme.activeColor};

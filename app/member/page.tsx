@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Table from 'components/Table';
 import { useQuery } from 'react-query';
 import { Box, HorizontalScrollContainer, Text, Title } from 'styles/styled';
@@ -51,20 +52,18 @@ export default function Users() {
   ];
 
   return (
-    <>
-      <Box>
-        <Title>회원 목록</Title>
-        {isLoading ? (
-          <Text>Loading...</Text>
-        ) : (
-          <>
-            <Text>회원 수: {data.length}</Text>
-            <HorizontalScrollContainer>
-              <Table tableHeader={tableHeader} memberData={data} />
-            </HorizontalScrollContainer>
-          </>
-        )}
-      </Box>
-    </>
+    <Box>
+      <Title>회원 목록</Title>
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <>
+          <Text>회원 수: {data.length}</Text>
+          <HorizontalScrollContainer>
+            <Table tableHeader={tableHeader} memberData={data} />
+          </HorizontalScrollContainer>
+        </>
+      )}
+    </Box>
   );
 }

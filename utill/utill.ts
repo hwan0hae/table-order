@@ -12,24 +12,25 @@ export const useDidMountEffect = (func: () => any, deps: Array<any>) => {
 };
 
 /** 이미지 선택 */
-export const onImgChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+export const onImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const FILE_SIZE_MAX_LIMIT = 5 * 1024 * 1024; // 5MB
 
   const target = e.currentTarget;
   const files = (target.files as FileList)[0];
   target.value = '';
   if (files === undefined) {
-    return;
+    return {};
   }
   // 파일 용량 체크
   if (files.size > FILE_SIZE_MAX_LIMIT) {
     alert('업로드 가능한 최대 용량은 5MB입니다. ');
-    return;
+    return {};
   }
 
   return files;
 };
 
+/** jwt 검증 */
 export async function verify(
   token: string,
   secret: string

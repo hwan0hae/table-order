@@ -1,6 +1,7 @@
 import { IMemberData } from './api';
+import { Auth } from './type';
 
-/**회사 회원가입 유효성 폼  */
+/** 회사 회원가입 유효성 폼  */
 export interface ICompanySignUpForm {
   companyName: string;
   companyNumber: string;
@@ -48,8 +49,3 @@ export interface IProductFormData {
   price?: number;
   description?: string;
 }
-
-export type Auth = 'OWNER' | 'ADMIN' | 'STAFF' | 'USER';
-
-//MEMBER로 바꿀것
-export const MEMBER_AUTH: Auth[] = ['ADMIN', 'STAFF', 'USER'];

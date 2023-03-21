@@ -1,4 +1,6 @@
 'use client';
+
+import React, { useRef, useState } from 'react';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import {
@@ -12,7 +14,6 @@ import {
 import { Box, Btn, Title } from 'styles/styled';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { onImgChange } from 'utill/utill';
-import { useRef, useState } from 'react';
 import Seo from 'components/Seo';
 import { useMutation } from 'react-query';
 import { productAdd } from 'utill/api';
@@ -36,7 +37,7 @@ function MenuAdd() {
     resolver: yupResolver(formSchema),
   });
   const imgInput = useRef<HTMLInputElement>(null);
-  const [imgFile, setImgFile] = useState<File>();
+  const [imgFile, setImgFile] = useState<File | object>();
   const [preview, setPreview] = useState<string>();
   const addMutation = useMutation(
     (formData: FormData) => productAdd(formData),
@@ -49,16 +50,16 @@ function MenuAdd() {
         router.push('/menu');
       },
       onSettled: () => {
-        //get데이터  ? 혹은 페이지 이동되니까 안해도될지도
+        // get데이터  ? 혹은 페이지 이동되니까 안해도될지도
       },
     }
   );
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = await onImgChange(e);
+    const file = onImgChange(e);
 
     setImgFile(file);
-    setPreview(URL.createObjectURL(file));
+    setPreview(URL.createObjectURL(file as Blob));
   };
 
   const onSubmit = (data: IProductFormData) => {
@@ -68,14 +69,14 @@ function MenuAdd() {
     formData.append('price', String(data.price));
     formData.append('description', data.description);
     if (imgFile) {
-      formData.append('image', imgFile);
+      formData.append('image', imgFile as Blob);
     }
 
     addMutation.mutate(formData);
   };
   return (
     <>
-      <Seo title={'MenuAdd'} description={'메뉴 추가 페이지입니다.'} />
+      <Seo title="MenuAdd" description="메뉴 추가 페이지입니다." />
       <Box>
         <Title>Menu Add</Title>
         <Form onSubmit={handleSubmit(onSubmit)}>

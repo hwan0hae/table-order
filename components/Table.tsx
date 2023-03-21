@@ -1,10 +1,11 @@
+import React from 'react';
 import { TableBox, Td, Th } from 'styles/styled';
 import { IMemberTable } from 'types/data';
 import DeleteModal from './DeleteModal';
 import EditModal from './EditModal';
 
 export default function Table({ tableHeader, memberData }: IMemberTable) {
-  //데이터 읽는용일시 useMemo 사용할것 no렌더링
+  // 데이터 읽는용일시 useMemo 사용할것 no렌더링
   /** header와 데이터 비매칭 방지용 키  */
   const headerKey = tableHeader.map((header) => header.accessor);
   return (
@@ -23,15 +24,18 @@ export default function Table({ tableHeader, memberData }: IMemberTable) {
             {headerKey.map((key) => (
               <Td key={key + member.id}>
                 {/* key로 객체의 값을 출력 */}
-                {key === 'no' ? (
-                  index
-                ) : key === 'edit' ? (
-                  <EditModal userData={member} />
-                ) : key === 'delete' ? (
-                  <DeleteModal id={member.id} title={member.name} />
-                ) : (
-                  member[key]
-                )}
+                {(() => {
+                  switch (key) {
+                    case 'no':
+                      return index;
+                    case 'edit':
+                      return <EditModal userData={member} />;
+                    case 'delete':
+                      return <DeleteModal id={member.id} title={member.name} />;
+                    default:
+                      return member[key];
+                  }
+                })()}
               </Td>
             ))}
           </tr>

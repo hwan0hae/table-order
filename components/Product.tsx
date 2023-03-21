@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -88,14 +88,14 @@ export default function Product({
 }: {
   productData: IProductData;
 }) {
-  const { id, name, price, description, image_url } = productData;
+  const { id, name, price, description, imageUrl } = productData;
   const ModalRef = useRef<HTMLDivElement>(null);
   const imgInput = useRef<HTMLInputElement>(null);
   const [user, setUser] = useSessionStorage<ISessionUserData | undefined>(
     'user',
     undefined
   );
-  const [imgFile, setImgFile] = useState<File>();
+  const [imgFile, setImgFile] = useState<File | object>();
   const [preview, setPreview] = useState<string>();
   const [onClicked, setOnClicked] = useState<boolean>(false);
   const formSchema = yup.object({
@@ -120,7 +120,7 @@ export default function Product({
     IMutatedValue,
     IMutatedError,
     number
-  >((id) => productDelete(id), {
+  >((data) => productDelete(data), {
     onError: (data) => {
       alert(data.response?.data.message);
     },
@@ -148,10 +148,10 @@ export default function Product({
   });
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = await onImgChange(e);
+    const file = onImgChange(e);
 
     setImgFile(file);
-    setPreview(URL.createObjectURL(file));
+    setPreview(URL.createObjectURL(file as Blob));
   };
   const onDelete = () => {
     productDeleteMutation.mutate(id);
@@ -165,7 +165,7 @@ export default function Product({
     formData.append('price', String(data.price));
     formData.append('description', data.description);
     if (imgFile) {
-      formData.append('image', imgFile);
+      formData.append('image', imgFile as Blob);
     }
     productEditMutation.mutate(formData);
   };
@@ -185,7 +185,7 @@ export default function Product({
   return (
     <>
       <Container onClick={() => setOnClicked(true)}>
-        <Image src={image_url} alt={`${name} 이미지`} />
+        <Image src={imageUrl} alt={`${name} 이미지`} />
         <Content>
           <SubTitle style={{ fontSize: '1.7rem' }}>{name}</SubTitle>
           <Description>{description}</Description>
