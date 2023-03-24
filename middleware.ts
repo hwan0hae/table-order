@@ -73,6 +73,7 @@ export const config = {
     '/member/:path*',
     '/signin',
     '/signup',
+    '/management/:path*',
   ],
 };
 

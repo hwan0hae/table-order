@@ -83,3 +83,10 @@ export interface IProductData {
   description?: string;
   imageUrl?: string;
 }
+
+export interface ITableAddData {
+  name?: string;
+  tableNo: number;
+  locX?: number;
+  locY?: number;
+}

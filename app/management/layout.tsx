@@ -19,11 +19,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Container>
       <MenuNavContainer>
-        <Tab path="/menu" item={{ text: 'Menu' }} />
+        <Tab path="/management" item={{ text: 'Management' }} />
         {isLoading ? null : (
           <>
             {user.auth === 'OWNER' ? (
-              <Tab path="/menu" item={{ text: 'Menu Add', slug: 'add' }} />
+              <Tab
+                path="/management"
+                item={{ text: 'Table Add', slug: 'add' }}
+              />
             ) : null}
           </>
         )}

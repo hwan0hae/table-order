@@ -131,6 +131,9 @@ export default function Nav() {
           <Link href="/order">
             <Item>주문</Item>
           </Link>
+          <Link href="/management">
+            <Item>매장관리</Item>
+          </Link>
           {isLoading ? null : (
             <>
               {user && (

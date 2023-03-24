@@ -4,6 +4,7 @@ import {
   IMemberSignUpData,
   ISignInData,
   ISignUpData,
+  ITableAddData,
 } from 'types/api';
 
 /** user api */
@@ -79,6 +80,12 @@ export async function productEdit(formData: FormData) {
   };
 
   const request = await axios.post('/api/v1/web/menu/edit', formData, config);
+
+  return request.data;
+}
+
+export async function tableAdd(data: ITableAddData) {
+  const request = await axios.post('/api/v1/web/management/add', data);
 
   return request.data;
 }

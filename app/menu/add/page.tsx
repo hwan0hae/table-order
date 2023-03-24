@@ -19,9 +19,9 @@ import { useMutation } from 'react-query';
 import { productAdd } from 'utill/api';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { IProductFormData } from 'types/data';
+import { IProductAddFormData } from 'types/data';
+import { IMutatedError, IMutatedValue } from 'types/api';
 
-// 66번줄 comanyId 수정할것
 function MenuAdd() {
   const router = useRouter();
   const formSchema = yup.object({
@@ -31,7 +31,7 @@ function MenuAdd() {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
-  } = useForm<IProductFormData>({
+  } = useForm<IProductAddFormData>({
     mode: 'onChange',
     reValidateMode: 'onSubmit',
     resolver: yupResolver(formSchema),
@@ -39,18 +39,15 @@ function MenuAdd() {
   const imgInput = useRef<HTMLInputElement>(null);
   const [imgFile, setImgFile] = useState<File | object>();
   const [preview, setPreview] = useState<string>();
-  const addMutation = useMutation(
-    (formData: FormData) => productAdd(formData),
+  const addMutation = useMutation<IMutatedValue, IMutatedError, FormData>(
+    (formData) => productAdd(formData),
     {
-      onError: (data: any) => {
+      onError: (data) => {
         toast(data.response?.data.message);
       },
       onSuccess: (data) => {
         toast(data.message);
         router.push('/menu');
-      },
-      onSettled: () => {
-        // get데이터  ? 혹은 페이지 이동되니까 안해도될지도
       },
     }
   );
@@ -62,7 +59,7 @@ function MenuAdd() {
     setPreview(URL.createObjectURL(file as Blob));
   };
 
-  const onSubmit = (data: IProductFormData) => {
+  const onSubmit = (data: IProductAddFormData) => {
     const formData = new FormData();
 
     formData.append('name', data.name);

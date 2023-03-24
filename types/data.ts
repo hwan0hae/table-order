@@ -44,7 +44,7 @@ export interface IEditUserForm {
   status: string;
 }
 
-export interface IProductFormData {
+export interface IProductAddFormData {
   name: string;
   price?: number;
   description?: string;
