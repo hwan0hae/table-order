@@ -61,7 +61,6 @@ function MenuAdd() {
 
   const onSubmit = (data: IProductAddFormData) => {
     const formData = new FormData();
-
     formData.append('name', data.name);
     formData.append('price', String(data.price));
     formData.append('description', data.description);

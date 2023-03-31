@@ -84,8 +84,16 @@ export async function productEdit(formData: FormData) {
   return request.data;
 }
 
+/** table management api */
 export async function tableAdd(data: ITableAddData) {
   const request = await axios.post('/api/v1/web/management/add', data);
+
+  return request.data;
+}
+
+/** order api */
+export async function getOrderRequest() {
+  const request = await axios.get(`/api/v1/web/order/request`);
 
   return request.data;
 }

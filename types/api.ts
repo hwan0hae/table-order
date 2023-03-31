@@ -64,18 +64,6 @@ export interface IEditUserData {
   status: string;
 }
 
-export interface IOrderData {
-  tableNo: number;
-  order: {
-    id: number;
-    name: string;
-    price: string;
-    description: string;
-    imageUrl: string;
-    count: number;
-  }[];
-}
-
 export interface IProductData {
   id: number;
   name: string;
@@ -89,4 +77,19 @@ export interface ITableAddData {
   tableNo: number;
   locX?: number;
   locY?: number;
+}
+
+export interface IGetOrderDetailRequest {
+  orderId: number;
+  detailId: number;
+  productName: string;
+  productPrice: number;
+  productCount: number;
+  createdAt: Date;
+}
+export interface IOrderRequestData {
+  orderDetail: IGetOrderDetailRequest[];
+  orderId: number;
+  tableNo: number;
+  createdAt: Date;
 }

@@ -25,7 +25,7 @@ import {
 } from 'styles/styled';
 import { AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
-import { IProductFormData } from 'types/data';
+import { IProductAddFormData } from 'types/data';
 import {
   IMutatedError,
   IMutatedValue,
@@ -106,7 +106,7 @@ export default function Product({
     handleSubmit,
     formState: { errors, isValid, isDirty },
     reset,
-  } = useForm<IProductFormData>({
+  } = useForm<IProductAddFormData>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: yupResolver(formSchema),
@@ -157,7 +157,7 @@ export default function Product({
     productDeleteMutation.mutate(id);
   };
 
-  const onSubmit = (data: IProductFormData) => {
+  const onSubmit = (data: IProductAddFormData) => {
     const formData = new FormData();
 
     formData.append('id', String(id));

@@ -1,6 +1,8 @@
-import { IOrderData } from 'types/api';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BlueBtn, RedBtn, Row, SubTitle, Text } from 'styles/styled';
+import { IOrderRequestData } from 'types/api';
+import { Time } from 'utill/utill';
 
 const Container = styled.div`
   width: 360px;
@@ -12,36 +14,78 @@ const Container = styled.div`
   flex-direction: column;
   padding: 12px;
   margin-bottom: 16px;
+  overflow-y: auto;
 `;
 const OrderContainer = styled.div`
   overflow-y: auto;
-  margin: 16px 0;
 `;
 const Menu = styled.div`
   display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+`;
+const MenuRow = styled.div`
+  display: flex;
   flex-direction: row;
-  margin-bottom: 16px;
   justify-content: space-between;
+  margin: 4px 0;
+`;
+const Right = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+const MenuFooter = styled.div`
+  margin-top: auto;
 `;
 
-export default function OrderList({ data }: { data: IOrderData }) {
+export default function OrderList({ data }: { data: IOrderRequestData }) {
+  const [sum, setSum] = useState<number>(0);
+  const onAdd = (price: number, count: number) => {
+    setSum((prev) => prev + price * count);
+  };
+
+  useEffect(() => {
+    data.orderDetail.map((order) =>
+      onAdd(order.productPrice, order.productCount)
+    );
+  }, []);
+
   return (
     <Container>
-      <SubTitle style={{ borderBottom: '1px solid' }}>
-        Table No. {data.tableNo}
-      </SubTitle>
+      <MenuRow>
+        <SubTitle style={{ borderBottom: '1px solid' }}>
+          Table No. {data.tableNo}
+        </SubTitle>
+        <Text style={{ color: 'gray' }}>{Time(data.createdAt)}</Text>
+      </MenuRow>
       <OrderContainer>
-        {data.order.map((order) => (
-          <Menu key={order.id}>
-            <Text>{order.name}</Text>
-            <Text>{order.count}개</Text>
+        {data.orderDetail.map((order) => (
+          <Menu key={order.detailId}>
+            <MenuRow>
+              <Text>{order.productName}</Text>
+              <MenuRow>
+                <Text>
+                  {order.productPrice.toLocaleString()} X {order.productCount}개
+                </Text>
+              </MenuRow>
+            </MenuRow>
+            <Right>
+              <Text>
+                {(order.productPrice * order.productCount).toLocaleString()} 원
+              </Text>
+            </Right>
           </Menu>
         ))}
       </OrderContainer>
-      <Row style={{ marginTop: 'auto' }}>
-        <BlueBtn style={{ width: '100%' }}>확인</BlueBtn>
-        <RedBtn style={{ width: '100%' }}>취소</RedBtn>
-      </Row>
+      <MenuFooter>
+        <Right>
+          <SubTitle> 총 금액: {sum.toLocaleString()} 원</SubTitle>
+        </Right>
+        <Row>
+          <BlueBtn style={{ width: '100%' }}>확인</BlueBtn>
+          <RedBtn style={{ width: '100%' }}>취소</RedBtn>
+        </Row>
+      </MenuFooter>
     </Container>
   );
 }

@@ -1,14 +1,15 @@
 import { useSetRecoilState } from 'recoil';
 import { io } from 'socket.io-client';
-import { IOrderData } from 'types/api';
-import { orderDataAtom } from 'utill/atoms';
+import { IOrderRequestData } from 'types/api';
+import { orderRequestDataAtom } from 'utill/atoms';
 
 type Props = {
   children: React.ReactNode;
 };
 
 export default function Socket({ children }: Props) {
-  const setOrderData = useSetRecoilState<IOrderData[]>(orderDataAtom);
+  const setOrderData =
+    useSetRecoilState<IOrderRequestData[]>(orderRequestDataAtom);
 
   const socket = io('http://localhost:8080');
 

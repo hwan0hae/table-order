@@ -1,27 +1,62 @@
 'use client';
 
 import OrderList from 'components/OrderList';
-import { useRecoilValue } from 'recoil';
-import { Box, HorizontalScrollContainer, Title } from 'styles/styled';
-import { IOrderData } from 'types/api';
-import { orderDataAtom } from 'utill/atoms';
+import { useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
+import { Box, HorizontalScrollContainer, Text, Title } from 'styles/styled';
+import { IOrderRequestData } from 'types/api';
+import { getOrderRequest } from 'utill/api';
+import { orderRequestDataAtom } from 'utill/atoms';
 
 export default function Order() {
-  const orderData = useRecoilValue<IOrderData[]>(orderDataAtom);
+  const { data, isLoading } = useQuery<IOrderRequestData[]>(
+    'orderData',
+    getOrderRequest,
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+  const [socketOrderData, setScoketOrderData] =
+    useRecoilState<IOrderRequestData[]>(orderRequestDataAtom);
 
-  console.log(orderData);
+  useEffect(() => {
+    setScoketOrderData([]);
+  }, []);
+
   return (
     <Box style={{ height: '85vh', justifyContent: 'start' }}>
       <Title>주문</Title>
 
       <HorizontalScrollContainer>
-        {orderData.length !== 0 &&
-          orderData.map((order, index) => (
-            <OrderList key={order.order[0].id} data={order} />
-          ))}
+        {isLoading ? (
+          <Text>Loading...</Text>
+        ) : data.length !== 0 ? (
+          <>
+            {data?.map((order) => (
+              <OrderList key={order.orderId} data={order} />
+            ))}
+            {socketOrderData.length !== 0 ? (
+              <>
+                {socketOrderData.map((order) => (
+                  <OrderList key={order.orderId} data={order} />
+                ))}
+              </>
+            ) : null}
+          </>
+        ) : (
+          <>
+            {socketOrderData.length !== 0 ? (
+              <>
+                {socketOrderData.map((order) => (
+                  <OrderList key={order.orderId} data={order} />
+                ))}
+              </>
+            ) : null}
+          </>
+        )}
       </HorizontalScrollContainer>
     </Box>
   );
 }
-
-// 스크롤 오른쪽으로 가고
