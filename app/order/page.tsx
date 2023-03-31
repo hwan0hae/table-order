@@ -21,10 +21,6 @@ export default function Order() {
   const [socketOrderData, setScoketOrderData] =
     useRecoilState<IOrderRequestData[]>(orderRequestDataAtom);
 
-  useEffect(() => {
-    setScoketOrderData([]);
-  }, []);
-
   return (
     <Box style={{ height: '85vh', justifyContent: 'start' }}>
       <Title>주문</Title>
