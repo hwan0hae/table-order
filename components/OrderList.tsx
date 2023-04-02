@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { useMutation, useQueryClient } from 'react-query';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { BlueBtn, RedBtn, Row, SubTitle, Text } from 'styles/styled';
-import { IOrderRequestData } from 'types/api';
+import { IMutatedError, IMutatedValue, IOrderRequestData } from 'types/api';
+import { OrderCancel, OrderCheck } from 'utill/api';
 import { Time } from 'utill/utill';
+import { orderRequestDataAtom } from 'utill/atoms';
 
 const Container = styled.div`
   width: 360px;
@@ -39,7 +44,36 @@ const MenuFooter = styled.div`
 `;
 
 export default function OrderList({ data }: { data: IOrderRequestData }) {
+  const queryClient = useQueryClient();
+  const setSocketOrderData = useSetRecoilState(orderRequestDataAtom);
   const [sum, setSum] = useState<number>(0);
+  const orderCheckMutation = useMutation<IMutatedValue, IMutatedError, number>(
+    (id) => OrderCheck(id),
+    {
+      onError: (res) => {
+        toast(res.response?.data.message);
+      },
+      onSuccess: (res) => {
+        setSocketOrderData([]);
+        queryClient.invalidateQueries('orderData');
+        toast(res.message);
+      },
+    }
+  );
+  const orderCancelMutation = useMutation<IMutatedValue, IMutatedError, number>(
+    (id) => OrderCancel(id),
+    {
+      onError: (res) => {
+        toast(res.response?.data.message);
+      },
+      onSuccess: (res) => {
+        setSocketOrderData([]);
+        queryClient.invalidateQueries('orderData');
+        toast(res.message);
+      },
+    }
+  );
+
   const onAdd = (price: number, count: number) => {
     setSum((prev) => prev + price * count);
   };
@@ -82,8 +116,18 @@ export default function OrderList({ data }: { data: IOrderRequestData }) {
           <SubTitle> 총 금액: {sum.toLocaleString()} 원</SubTitle>
         </Right>
         <Row>
-          <BlueBtn style={{ width: '100%' }}>확인</BlueBtn>
-          <RedBtn style={{ width: '100%' }}>취소</RedBtn>
+          <BlueBtn
+            onClick={() => orderCheckMutation.mutate(data.orderId)}
+            style={{ width: '100%' }}
+          >
+            확인
+          </BlueBtn>
+          <RedBtn
+            onClick={() => orderCancelMutation.mutate(data.orderId)}
+            style={{ width: '100%' }}
+          >
+            취소
+          </RedBtn>
         </Row>
       </MenuFooter>
     </Container>

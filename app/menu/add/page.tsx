@@ -42,11 +42,11 @@ function MenuAdd() {
   const addMutation = useMutation<IMutatedValue, IMutatedError, FormData>(
     (formData) => productAdd(formData),
     {
-      onError: (data) => {
-        toast(data.response?.data.message);
+      onError: (res) => {
+        toast(res.response?.data.message);
       },
-      onSuccess: (data) => {
-        toast(data.message);
+      onSuccess: (res) => {
+        toast(res.message);
         router.push('/menu');
       },
     }

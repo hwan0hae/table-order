@@ -97,3 +97,15 @@ export async function getOrderRequest() {
 
   return request.data;
 }
+export async function OrderCheck(id: number) {
+  const data = { orderId: id };
+  const request = await axios.post(`/api/v1/web/order/check`, data);
+
+  return request.data;
+}
+export async function OrderCancel(id: number) {
+  const data = { orderId: id };
+  const request = await axios.post(`/api/v1/web/order/cancel`, data);
+
+  return request.data;
+}

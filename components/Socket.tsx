@@ -27,7 +27,6 @@ export default function Socket({ children }: Props) {
 
   useEffect(() => {
     if (user) {
-      console.log('소켓연결');
       const socketIo = io('http://localhost:8080');
       setSocket(socketIo);
       setConnected(true);
