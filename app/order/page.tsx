@@ -3,11 +3,11 @@
 import OrderList from 'components/OrderList';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Box, HorizontalScrollContainer, Text, Title } from 'styles/styled';
 import { IOrderRequestData } from 'types/api';
 import { getOrderRequest } from 'utill/api';
-import { orderRequestDataAtom } from 'utill/atoms';
+import { orderNotificationAtom, orderRequestDataAtom } from 'utill/atoms';
 
 export default function Order() {
   const { data, isLoading } = useQuery<IOrderRequestData[]>(
@@ -18,9 +18,14 @@ export default function Order() {
       refetchOnWindowFocus: false,
     }
   );
-  const [socketOrderData, setScoketOrderData] =
-    useRecoilState<IOrderRequestData[]>(orderRequestDataAtom);
-
+  const socketOrderData =
+    useRecoilValue<IOrderRequestData[]>(orderRequestDataAtom);
+  const setOrderNotification = useSetRecoilState<boolean>(
+    orderNotificationAtom
+  );
+  useEffect(() => {
+    setOrderNotification(false);
+  }, []);
   return (
     <Box style={{ height: '85vh', justifyContent: 'start' }}>
       <Title>주문</Title>

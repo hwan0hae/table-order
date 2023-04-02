@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { Btn, Row, Text } from 'styles/styled';
 import { IMutatedError, IMutatedValue, ISessionUserData } from 'types/api';
-import { isDarkAtom } from 'utill/atoms';
+import { isDarkAtom, orderNotificationAtom } from 'utill/atoms';
 import { useSessionStorage } from 'usehooks-ts';
 import { useMutation } from 'react-query';
 import { logout } from 'utill/api';
@@ -59,6 +59,7 @@ const Items = styled.ul`
   margin: 0 16px;
 `;
 const Item = styled.li`
+  position: relative;
   float: left;
   margin-right: 10px;
   transition: color 0.2s ease-in-out;
@@ -66,6 +67,15 @@ const Item = styled.li`
   &:hover {
     color: #279ef9;
   }
+`;
+const Notify = styled.div`
+  position: absolute;
+  background-color: red;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  right: -4px;
+  top: -4px;
 `;
 const DarkModeBtn = styled.button`
   background-color: ${(props) => props.theme.bgColor};
@@ -85,6 +95,7 @@ const DarkModeBtn = styled.button`
 export default function Nav() {
   const router = useRouter();
   const [isDark, setIsDark] = useRecoilState<boolean>(isDarkAtom);
+  const OrderNotification = useRecoilValue<boolean>(orderNotificationAtom);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useSessionStorage<ISessionUserData>(
     'user',
@@ -101,7 +112,6 @@ export default function Nav() {
       router.push('/');
     },
   });
-
   const DarkModeToggle = () => {
     setIsDark((prv) => !prv);
   };
@@ -129,7 +139,10 @@ export default function Nav() {
             <Item>쿠폰</Item>
           </Link>
           <Link href="/order">
-            <Item>주문</Item>
+            <Item>
+              주문
+              {OrderNotification && <Notify />}
+            </Item>
           </Link>
           <Link href="/management">
             <Item>매장관리</Item>
