@@ -126,6 +126,7 @@ export const Th = styled.th`
 export const Td = styled.td`
   border: solid 0.5px ${(props) => props.theme.borderLine};
   padding: 6px 12px;
+  white-space: nowrap;
   font-weight: 400;
 `;
 

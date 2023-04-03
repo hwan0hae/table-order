@@ -1,6 +1,6 @@
 'use client';
 
-import Table from 'components/Table';
+import MemberTable from 'components/MemberTable';
 import { useQuery } from 'react-query';
 import { Box, HorizontalScrollContainer, Text, Title } from 'styles/styled';
 import { IMemberData } from 'types/api';
@@ -33,11 +33,11 @@ export default function Users() {
       value: '권한',
     },
     {
-      accessor: 'created_at',
+      accessor: 'createdAt',
       value: '생성일',
     },
     {
-      accessor: 'updated_at',
+      accessor: 'updatedAt',
       value: '수정일',
     },
     {
@@ -59,7 +59,7 @@ export default function Users() {
         <>
           <Text>회원 수: {data.length}</Text>
           <HorizontalScrollContainer>
-            <Table tableHeader={tableHeader} memberData={data} />
+            <MemberTable tableHeader={tableHeader} rows={data} />
           </HorizontalScrollContainer>
         </>
       )}

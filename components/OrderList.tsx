@@ -24,12 +24,12 @@ const Container = styled.div`
 const OrderContainer = styled.div`
   overflow-y: auto;
 `;
-const Menu = styled.div`
+export const Menu = styled.div`
   display: flex;
   flex-direction: column;
   margin: 8px 0;
 `;
-const MenuRow = styled.div`
+export const MenuRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

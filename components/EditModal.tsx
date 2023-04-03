@@ -26,7 +26,12 @@ import {
 import { IEditModalData, IEditUserForm } from 'types/data';
 import { useForm } from 'react-hook-form';
 import { userEdit } from 'utill/api';
-import { IEditUserData, IMutatedError, IMutatedValue } from 'types/api';
+import {
+  IEditUserData,
+  IMemberData,
+  IMutatedError,
+  IMutatedValue,
+} from 'types/api';
 import { MEMBER_AUTH } from 'types/type';
 
 export default function EditModal({ userData }: IEditModalData) {

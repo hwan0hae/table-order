@@ -20,10 +20,10 @@ export interface IMemberSignUpForm {
   auth: Auth;
 }
 
-/** user Table > react-table 데이터 타입 정의 */
-export interface IMemberTable {
+/** Table > react-table 데이터 타입 정의 */
+export interface ITable<T> {
   tableHeader: { accessor: string; value: string }[];
-  memberData: IMemberData[];
+  rows: T[];
 }
 
 /** 삭제 모달로 보내지는 props 타입 정의 */

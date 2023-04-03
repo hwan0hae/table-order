@@ -93,3 +93,12 @@ export interface IOrderRequestData {
   tableNo: number;
   createdAt: Date;
 }
+
+export interface IOrderRecordData {
+  orderDetail: IGetOrderDetailRequest[];
+  orderId: number;
+  tableNo: number;
+  orderStatus: number;
+  createdAt: Date;
+  modifiedAt: Date;
+}

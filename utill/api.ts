@@ -109,3 +109,9 @@ export async function OrderCancel(id: number) {
 
   return request.data;
 }
+
+export async function getOrderRecord() {
+  const request = await axios.get(`/api/v1/web/order/record`);
+
+  return request.data;
+}
