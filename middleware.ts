@@ -76,5 +76,3 @@ export const config = {
     '/management/:path*',
   ],
 };
-
-//url path을 admin, owner 이런식으로해서 나누는것도 //ㅇㅇ

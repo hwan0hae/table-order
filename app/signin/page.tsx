@@ -25,6 +25,7 @@ import {
 import { useMutation } from 'react-query';
 import { signIn } from 'utill/api';
 import { useSessionStorage } from 'usehooks-ts';
+import { useEffect } from 'react';
 
 export default function SignIn() {
   const router = useRouter();
@@ -76,6 +77,11 @@ export default function SignIn() {
   const onSubmit = async (data: ISignInData) => {
     signInMutation.mutate(data);
   };
+
+  useEffect(() => {
+    setUser(undefined);
+    sessionStorage.removeItem('user');
+  }, []);
 
   return (
     <>

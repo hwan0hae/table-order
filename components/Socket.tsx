@@ -6,7 +6,6 @@ import { IOrderRequestData, ISessionUserData } from 'types/api';
 import { useSessionStorage } from 'usehooks-ts';
 import { orderNotificationAtom, orderRequestDataAtom } from 'utill/atoms';
 import { useDidMountEffect } from 'utill/utill';
-
 type Props = {
   children: React.ReactNode;
 };
