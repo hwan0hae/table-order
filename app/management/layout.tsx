@@ -22,7 +22,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Tab path="/management" item={{ text: 'Management' }} />
         {isLoading ? null : (
           <>
-            {user.auth === 'OWNER' ? (
+            {user?.auth === 'OWNER' ? (
               <Tab
                 path="/management"
                 item={{ text: 'Table Add', slug: 'add' }}

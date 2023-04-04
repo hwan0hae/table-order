@@ -11,7 +11,6 @@ export default function Record() {
     'orderRecord',
     getOrderRecord
   );
-  console.log(data);
   const tableHeader = [
     {
       accessor: 'no',
@@ -46,9 +45,9 @@ export default function Record() {
         <Text>Loading...</Text>
       ) : (
         <>
-          <Text>주문 수: {data.length}</Text>
+          <Text>주문 수: {data?.length}</Text>
           <HorizontalScrollContainer>
-            <OrderTable tableHeader={tableHeader} rows={data} />
+            {data ? <OrderTable tableHeader={tableHeader} rows={data} /> : null}
           </HorizontalScrollContainer>
         </>
       )}

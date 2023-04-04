@@ -33,7 +33,7 @@ export default function Order() {
       <HorizontalScrollContainer>
         {isLoading ? (
           <Text>Loading...</Text>
-        ) : data.length !== 0 ? (
+        ) : data?.length !== 0 ? (
           <>
             {data?.map((order) => (
               <OrderList key={order.orderId} data={order} />

@@ -30,6 +30,8 @@ export default function Socket({ children }: Props) {
       setSocket(socketIo);
       setConnected(true);
 
+      socketIo.emit('joinRoom', user.companyId);
+
       socketIo.on('orderData', (data) => {
         setOrderData((prev) => [...prev, data]);
       });
