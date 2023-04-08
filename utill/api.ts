@@ -110,8 +110,8 @@ export async function OrderCancel(id: number) {
   return request.data;
 }
 
-export async function getOrderRecord() {
-  const request = await axios.get(`/api/v1/web/order/record`);
+export async function getOrderRecord(page: number | string = 1) {
+  const request = await axios.get(`/api/v1/web/order/record?p=${page}`);
 
   return request.data;
 }

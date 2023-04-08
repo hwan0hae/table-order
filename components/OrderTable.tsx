@@ -29,7 +29,7 @@ export default function OrderTable({
                 {(() => {
                   switch (key) {
                     case 'no':
-                      return index + 1;
+                      return data.orderId;
                     case 'orderDetail':
                       return data.orderDetail.map((detail) => (
                         <Menu key={detail.detailId}>

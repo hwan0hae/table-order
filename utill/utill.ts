@@ -1,5 +1,8 @@
 import { JWTPayload, jwtVerify } from 'jose';
 import { useEffect, useRef } from 'react';
+import { useInfiniteQuery } from 'react-query';
+import { IInfiniteScrollData, IOrderRecordData } from 'types/api';
+import { getOrderRecord } from 'utill/api';
 
 /** 첫 렌더링 막기 */
 export const useDidMountEffect = (func: () => any, deps: Array<any>) => {
@@ -72,4 +75,34 @@ export const elapsedTime = (date: Date) => {
     }
   }
   return '방금';
+};
+
+/** 스크롤 쿼리 */
+export const orderRecordScrollQuery = <T extends IInfiniteScrollData<T>>(
+  name: string,
+  callback: Function
+) => {
+  const {
+    data,
+    fetchNextPage: getNextPage,
+    hasNextPage: getNextPageIsPossible,
+    isLoading,
+    remove,
+    refetch,
+  } = useInfiniteQuery<T>([`${name}_page_list`], callback(), {
+    getNextPageParam: (lastPage, pages) => {
+      if (!lastPage.isLast) return lastPage.current_page + 1;
+
+      return undefined;
+    },
+  });
+
+  return {
+    data,
+    getNextPage,
+    getNextPageIsPossible,
+    isLoading,
+    remove,
+    refetch,
+  };
 };

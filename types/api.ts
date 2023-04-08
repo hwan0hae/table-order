@@ -102,3 +102,14 @@ export interface IOrderRecordData {
   createdAt: Date;
   modifiedAt: Date;
 }
+export interface IOrderRecordPageData {
+  orderData: IOrderRecordData[];
+  totalPage: number;
+  totalData: number;
+}
+
+export interface IInfiniteScrollData<T> {
+  list: T;
+  current_page: number;
+  isLast: boolean;
+}
