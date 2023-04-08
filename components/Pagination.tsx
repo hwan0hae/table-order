@@ -1,6 +1,5 @@
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
-import { Text } from 'styles/styled';
 
 interface IPaginationProps {
   totalPage: number;
