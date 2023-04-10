@@ -170,3 +170,13 @@ export const Modal = styled(motion.div).attrs({
   overflow: hidden;
   z-index: 20;
 `;
+
+export const TableDetailModal = styled(Modal)`
+  width: 100%;
+  min-width: 600px;
+  max-width: 800px;
+`;
+
+export const Right = styled.div`
+  margin-left: auto;
+`;

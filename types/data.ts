@@ -36,6 +36,15 @@ export interface IEditModalData {
   userData: IMemberData;
 }
 
+export interface ITableDetailData {
+  tableId: number;
+  tableNo: number;
+}
+export interface ITableModalProps {
+  tableData: ITableDetailData;
+  setTableModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 export interface IEditUserForm {
   email: string;
   name: string;
@@ -48,4 +57,16 @@ export interface IProductAddFormData {
   name: string;
   price?: number;
   description?: string;
+}
+
+export interface ITableAddFormData {
+  name?: string;
+  tableNo: number;
+}
+
+export interface IDrawTableData {
+  locX: number;
+  locY: number;
+  tableWidth: number;
+  tableHeight: number;
 }

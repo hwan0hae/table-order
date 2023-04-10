@@ -85,6 +85,24 @@ export async function productEdit(formData: FormData) {
 }
 
 /** table management api */
+export async function getTable() {
+  const request = await axios.get(`/api/v1/web/management/table`);
+
+  return request.data;
+}
+export async function getTableDetail(tableId: number) {
+  const request = await axios.get(
+    `/api/v1/web/management/tabledetail?id=${tableId}`
+  );
+
+  return request.data;
+}
+export async function tablePayment(tableId: number) {
+  const data = { tableId };
+  const request = await axios.post('/api/v1/web/management/payment', data);
+
+  return request.data;
+}
 export async function tableAdd(data: ITableAddData) {
   const request = await axios.post('/api/v1/web/management/add', data);
 

@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { useMutation, useQueryClient } from 'react-query';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { BlueBtn, RedBtn, Row, SubTitle, Text } from 'styles/styled';
+import { BlueBtn, RedBtn, Right, Row, SubTitle, Text } from 'styles/styled';
 import { IMutatedError, IMutatedValue, IOrderRequestData } from 'types/api';
 import { OrderCancel, OrderCheck } from 'utill/api';
 import { Time } from 'utill/utill';
@@ -27,7 +27,7 @@ const OrderContainer = styled.div`
 export const Menu = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 8px 0;
+  padding: 4px 0;
 `;
 export const MenuRow = styled.div`
   display: flex;
@@ -35,10 +35,7 @@ export const MenuRow = styled.div`
   justify-content: space-between;
   margin: 4px 0;
 `;
-const Right = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
+
 const MenuFooter = styled.div`
   margin-top: auto;
 `;
@@ -112,7 +109,7 @@ export default function OrderList({ data }: { data: IOrderRequestData }) {
         ))}
       </OrderContainer>
       <MenuFooter>
-        <Right>
+        <Right style={{ display: 'flex', justifyContent: 'end' }}>
           <SubTitle> 총 금액: {sum.toLocaleString()} 원</SubTitle>
         </Right>
         <Row>

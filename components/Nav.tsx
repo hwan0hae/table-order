@@ -27,6 +27,7 @@ const NavBar = styled.nav`
   color: ${(props) => props.theme.textColor};
   font-weight: 500;
   border-bottom: 1px solid ${(props) => props.theme.borderLine};
+  z-index: 10;
 `;
 const Logo = styled.div`
   display: flex;
