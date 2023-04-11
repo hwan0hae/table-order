@@ -130,5 +130,8 @@ export const Radio = styled.input.attrs({ type: 'radio' })`
 `;
 
 export const Canvas = styled.canvas`
-  background-color: ${(props) => props.theme.borderLine};
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
 `;

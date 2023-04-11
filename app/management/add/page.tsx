@@ -3,12 +3,24 @@
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation } from 'react-query';
-import { IMutatedError, IMutatedValue, ITableAddData } from 'types/api';
-import { tableAdd } from 'utill/api';
+import { useMutation, useQuery } from 'react-query';
+import {
+  IGetTableData,
+  IMutatedError,
+  IMutatedValue,
+  ITableAddData,
+} from 'types/api';
+import { getTable, tableAdd } from 'utill/api';
 import { toast } from 'react-hot-toast';
 import Seo from 'components/Seo';
-import { Box, Btn, Text, Title } from 'styles/styled';
+import {
+  Box,
+  Btn,
+  Title,
+  TableMapBox,
+  TableMapContainer,
+  TableMapText,
+} from 'styles/styled';
 import {
   Canvas,
   CanvasForm,
@@ -27,7 +39,7 @@ export default function TableAdd() {
   const [isDraw, setIsDraw] = useState<boolean>(false);
   const [drawVisible, setDrawVisible] = useState<boolean>(false);
   const [drawData, setDrawData] = useState<IDrawTableData>();
-
+  const { data, isLoading } = useQuery<IGetTableData[]>('tableAdd', getTable);
   const formSchema = yup.object({
     tableNo: yup.number().required('테이블 번호를 입력해주세요.'),
   });
@@ -66,10 +78,7 @@ export default function TableAdd() {
 
   const drawStart = (e: MouseEvent): void => {
     setIsDraw(true);
-    setPos([
-      e.pageX - canvasRef.current.offsetLeft,
-      e.pageY - canvasRef.current.offsetTop,
-    ]);
+    setPos([e.offsetX, e.offsetY]);
   };
   const drawSquare = (e: MouseEvent): void => {
     if (!isDraw) return;
@@ -90,7 +99,21 @@ export default function TableAdd() {
   useEffect(() => {
     if (drawVisible) {
       const canvas = canvasRef.current;
+      // const context = canvas.getContext('2d');
       setCtx(canvas.getContext('2d'));
+
+      // context.strokeStyle = 'white';
+      // context.fillStyle = 'white';
+      // context.font = 'italic bold 24px Arial, sans-serif';
+      // data.map((table) => {
+      //   context.fillText(`${table.tableNo}`, table.locX, table.locY - 5);
+      //   context.strokeRect(
+      //     table.locX,
+      //     table.locY,
+      //     table.tableWidth,
+      //     table.tableHeight
+      //   );
+      // });
     }
   }, [drawVisible]);
   useEffect(() => {
@@ -137,7 +160,23 @@ export default function TableAdd() {
             </Btn>
           </WidthContainer>
 
-          {drawVisible && <Canvas ref={canvasRef} width={750} height={750} />}
+          {drawVisible && !isLoading && (
+            <TableMapContainer>
+              {data?.map((table) => (
+                <TableMapBox
+                  key={table.tableId}
+                  status={'1'}
+                  x={table.locX}
+                  y={table.locY}
+                  width={table.tableWidth}
+                  height={table.tableHeight}
+                >
+                  <TableMapText>{table.tableNo}</TableMapText>
+                </TableMapBox>
+              ))}
+              <Canvas ref={canvasRef} width={750} height={750} />
+            </TableMapContainer>
+          )}
 
           <SubmitBtn disabled={!(isValid && isDirty)}>추가하기</SubmitBtn>
         </CanvasForm>

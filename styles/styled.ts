@@ -100,7 +100,7 @@ export const HorizontalScrollContainer = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     background-color: ${(props) => props.theme.textColor};
-    border-radius: 10px;
+    border-radius: 10pxManagement;
   }
   &::-webkit-scrollbar-track {
     border-radius: 10px;
@@ -179,4 +179,44 @@ export const TableDetailModal = styled(Modal)`
 
 export const Right = styled.div`
   margin-left: auto;
+`;
+
+/** TableMap */
+export const TableMapContainer = styled.div`
+  background-color: ${(props) => props.theme.borderLine};
+  position: relative;
+  width: 750px;
+  height: 750px;
+`;
+
+export const TableMapBox = styled.div<{
+  status: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}>`
+  position: absolute;
+  display: ${(props) => (props.status === '0' ? 'none' : 'default')};
+  border: 1px solid
+    ${(props) =>
+      props.status === '2' ? 'green' : props.status === '3' ? 'red' : 'white'};
+  left: ${(props) => props.x}px;
+  top: ${(props) => props.y}px;
+  width: ${(props) => props.width}px;
+  height: ${(props) => props.height}px;
+
+  cursor: ${(props) => (props.status === '3' ? 'pointer' : 'default')};
+  transition: border-color 0.2s ease-in;
+
+  &:hover {
+    border-color: ${(props) => (props.status === '3' ? 'pink' : 'none')};
+  }
+`;
+
+export const TableMapText = styled.span`
+  color: white;
+  font-size: 2em;
+  font-weight: 600;
+  margin: 6px;
 `;
