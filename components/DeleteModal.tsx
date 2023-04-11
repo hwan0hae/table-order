@@ -5,6 +5,7 @@ import { Box, Btn, RedBtn, Modal, Overlay, Row, Text } from 'styles/styled';
 import { IMutatedError, IMutatedValue } from 'types/api';
 import { IDeleteModalData } from 'types/data';
 import { userDelete } from 'utill/api';
+import { ModalScrollPrevent } from 'utill/utill';
 
 export default function DeleteModal({ id, title }: IDeleteModalData) {
   const ModalRef = useRef<HTMLDivElement>(null);
@@ -37,6 +38,7 @@ export default function DeleteModal({ id, title }: IDeleteModalData) {
     return () => window.removeEventListener('mousedown', handleClick);
   }, [ModalRef]);
 
+  ModalScrollPrevent();
   return (
     <>
       <RedBtn onClick={() => setOnClicked(true)} style={{ borderRadius: 15 }}>

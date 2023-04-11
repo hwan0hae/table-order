@@ -18,7 +18,7 @@ import { getTableDetail, tablePayment } from 'utill/api';
 import { IGetTableDetailData, IMutatedError, IMutatedValue } from 'types/api';
 import { Menu, MenuRow } from './OrderList';
 import styled from 'styled-components';
-import { Time } from 'utill/utill';
+import { ModalScrollPrevent, Time } from 'utill/utill';
 import { toast } from 'react-hot-toast';
 
 const OrderList = styled.div`
@@ -51,6 +51,7 @@ export default function TableModal({
       onSuccess: (res) => {
         toast.success(res.message);
         queryClient.invalidateQueries('table');
+        setSum(0);
         setTableModalVisible(false);
       },
     }
@@ -77,6 +78,8 @@ export default function TableModal({
       )
     );
   }, [data]);
+
+  ModalScrollPrevent();
   return (
     <AnimatePresence>
       <Overlay>
