@@ -46,9 +46,17 @@ export default function OrderTable({
                       ));
 
                     case 'orderStatus':
-                      if (data.orderStatus === 0)
-                        return <Text style={{ color: 'red' }}>취소</Text>;
-                      else return <Text>확인</Text>;
+                      switch (data.orderStatus) {
+                        case 0:
+                          return <Text style={{ color: 'red' }}>취소</Text>;
+                        case 1:
+                          return <Text>대기</Text>;
+                        case 2:
+                          return <Text style={{ color: 'blue' }}>확인</Text>;
+                        case 3:
+                          return <Text style={{ color: 'green' }}>결제</Text>;
+                      }
+
                     case 'createdAt':
                       return Time(data.createdAt);
                     case 'modifiedAt':

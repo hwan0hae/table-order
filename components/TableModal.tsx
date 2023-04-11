@@ -80,7 +80,10 @@ export default function TableModal({
   return (
     <AnimatePresence>
       <Overlay>
-        <TableDetailModal ref={ModalRef}>
+        <TableDetailModal
+          ref={ModalRef}
+          style={{ maxHeight: '850px', overflow: 'auto' }}
+        >
           <Box>
             <Title>{tableNo}번 테이블</Title>
             {isLoading ? (
