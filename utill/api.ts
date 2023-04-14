@@ -133,3 +133,19 @@ export async function getOrderRecord(page: number | string = 1) {
 
   return request.data;
 }
+
+export async function getSales(year: number, month: number) {
+  const request = await axios.get(
+    `/api/v1/web/sales?year=${year}&month=${month}`
+  );
+
+  return request.data;
+}
+
+export async function getDailySales(year: number, month: number, day: number) {
+  const request = await axios.get(
+    `/api/v1/web/sales/day?year=${year}&month=${month}&day=${day}`
+  );
+
+  return request.data;
+}

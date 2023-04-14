@@ -44,6 +44,12 @@ export interface ITableModalProps {
   tableData: ITableDetailData;
   setTableModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
+export interface IDailyModalProps {
+  year: number;
+  month: number;
+  day: number;
+  setDay: React.Dispatch<React.SetStateAction<number | null>>;
+}
 
 export interface IEditUserForm {
   email: string;

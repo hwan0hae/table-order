@@ -131,3 +131,18 @@ export interface IGetTableDetailData {
   modifiedAt: Date;
   orderDetail: IGetOrderDetailRequest[];
 }
+
+export interface IGetSalesData {
+  monthlySales: number;
+  dailySales: {
+    day: string;
+    salesAmount: number;
+  }[];
+}
+
+export interface IGetDailySalesData {
+  productId: number;
+  productName: string;
+  productCount: number;
+  productPrice: number;
+}

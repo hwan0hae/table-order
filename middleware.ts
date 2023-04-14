@@ -74,5 +74,6 @@ export const config = {
     '/signin',
     '/signup',
     '/management/:path*',
+    '/sales',
   ],
 };

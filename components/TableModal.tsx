@@ -4,6 +4,8 @@ import {
   BlueBtn,
   Box,
   Btn,
+  OrderBox,
+  OrderList,
   Overlay,
   Right,
   Row,
@@ -20,16 +22,6 @@ import { Menu, MenuRow } from './OrderList';
 import styled from 'styled-components';
 import { ModalScrollPrevent, Time } from 'utill/utill';
 import { toast } from 'react-hot-toast';
-
-const OrderList = styled.div`
-  width: 100%;
-`;
-const OrderBox = styled.div`
-  border-bottom: 1px solid ${(props) => props.theme.borderLine};
-  width: 100%;
-  padding: 0 12px;
-  margin-bottom: 6px;
-`;
 
 export default function TableModal({
   tableData: { tableId, tableNo },

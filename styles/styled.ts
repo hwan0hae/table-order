@@ -220,3 +220,13 @@ export const TableMapText = styled.span`
   font-weight: 600;
   margin: 6px;
 `;
+
+export const OrderList = styled.div`
+  width: 100%;
+`;
+export const OrderBox = styled.div`
+  border-bottom: 1px solid ${(props) => props.theme.borderLine};
+  width: 100%;
+  padding: 0 12px;
+  margin-bottom: 6px;
+`;

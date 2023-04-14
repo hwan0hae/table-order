@@ -13,7 +13,6 @@ import {
 } from 'styles/styled';
 import { IGetTableData } from 'types/api';
 import { getTable } from 'utill/api';
-import styled from 'styled-components';
 import TableModal from 'components/TableModal';
 import { ITableDetailData } from 'types/data';
 

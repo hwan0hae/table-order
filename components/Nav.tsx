@@ -148,6 +148,9 @@ export default function Nav() {
           <Link href="/management">
             <Item>매장관리</Item>
           </Link>
+          <Link href="/sales">
+            <Item>매출현황</Item>
+          </Link>
           {isLoading ? null : (
             <>
               {user && (
