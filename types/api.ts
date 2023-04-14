@@ -75,8 +75,10 @@ export interface IProductData {
 export interface ITableAddData {
   name?: string;
   tableNo: number;
-  locX?: number;
-  locY?: number;
+  locX: number;
+  locY: number;
+  tableWidth: number;
+  tableHeight: number;
 }
 
 export interface IGetOrderDetailRequest {
@@ -112,4 +114,35 @@ export interface IInfiniteScrollData<T> {
   list: T;
   current_page: number;
   isLast: boolean;
+}
+
+export interface IGetTableData {
+  tableId: number;
+  tableNo: number;
+  locX: number;
+  locY: number;
+  tableWidth: number;
+  tableHeight: number;
+  status: string;
+}
+
+export interface IGetTableDetailData {
+  orderId: number;
+  modifiedAt: Date;
+  orderDetail: IGetOrderDetailRequest[];
+}
+
+export interface IGetSalesData {
+  monthlySales: number;
+  dailySales: {
+    day: string;
+    salesAmount: number;
+  }[];
+}
+
+export interface IGetDailySalesData {
+  productId: number;
+  productName: string;
+  productCount: number;
+  productPrice: number;
 }

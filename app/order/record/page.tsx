@@ -61,11 +61,9 @@ export default function Record({ searchParams }) {
       ) : (
         <>
           <Text>주문 수: {data?.totalData}</Text>
-          <HorizontalScrollContainer>
-            {data ? (
-              <OrderTable tableHeader={tableHeader} rows={data.orderData} />
-            ) : null}
-          </HorizontalScrollContainer>
+          {data ? (
+            <OrderTable tableHeader={tableHeader} rows={data.orderData} />
+          ) : null}
           <Pagination totalPage={data.totalPage} p={p} />
         </>
       )}

@@ -33,6 +33,7 @@ import {
   IMutatedValue,
 } from 'types/api';
 import { MEMBER_AUTH } from 'types/type';
+import { ModalScrollPrevent } from 'utill/utill';
 
 export default function EditModal({ userData }: IEditModalData) {
   const { id, name, email, phone, auth, status } = userData;
@@ -112,6 +113,8 @@ export default function EditModal({ userData }: IEditModalData) {
     window.addEventListener('mousedown', handleClick);
     return () => window.removeEventListener('mousedown', handleClick);
   }, [ModalRef]);
+
+  ModalScrollPrevent();
   return (
     <>
       <BlueBtn onClick={() => setOnClicked(true)} style={{ borderRadius: 15 }}>

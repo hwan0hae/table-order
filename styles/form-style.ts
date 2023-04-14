@@ -8,10 +8,25 @@ export const FormContainer = styled.div`
   align-items: center;
   flex-direction: column;
 `;
+
 export const Form = styled.form`
+  width: 350px;
   display: flex;
   flex-direction: column;
+  margin: 16px 0px;
+  padding: 0 40px;
+`;
+export const CanvasForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+export const WidthContainer = styled.div`
   width: 350px;
+  display: flex;
+  flex-direction: column;
   margin: 16px 0px;
   padding: 0 40px;
 `;
@@ -112,4 +127,11 @@ export const Radio = styled.input.attrs({ type: 'radio' })`
     color: ${(props) => props.theme.textColor};
   }
   display: none;
+`;
+
+export const Canvas = styled.canvas`
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
 `;

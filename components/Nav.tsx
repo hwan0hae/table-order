@@ -27,6 +27,7 @@ const NavBar = styled.nav`
   color: ${(props) => props.theme.textColor};
   font-weight: 500;
   border-bottom: 1px solid ${(props) => props.theme.borderLine};
+  z-index: 10;
 `;
 const Logo = styled.div`
   display: flex;
@@ -146,6 +147,9 @@ export default function Nav() {
           </Link>
           <Link href="/management">
             <Item>매장관리</Item>
+          </Link>
+          <Link href="/sales">
+            <Item>매출현황</Item>
           </Link>
           {isLoading ? null : (
             <>
